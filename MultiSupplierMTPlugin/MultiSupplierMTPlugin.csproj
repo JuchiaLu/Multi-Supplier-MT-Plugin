@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net48</TargetFrameworks>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="Icon.bmp" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Icon.bmp" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="MemoQ.Addins.Common">
+			<HintPath>..\References\MemoQ.Addins.Common.dll</HintPath>
+		</Reference>
+		<Reference Include="MemoQ.MTInterfaces">
+			<HintPath>..\References\MemoQ.MTInterfaces.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Net.Http" />
+		<Reference Include="System.Web" />
+		<Reference Include="System.Windows.Forms" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Service\OptionsFormXunfei.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Service\OptionsFormYoudao.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Service\OptionsFormNiutrans.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Service\OptionsFormCaiyun.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Service\OptionsFormHuoshan.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Service\OptionsFormTencent.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Service\OptionsFormAliyun.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Service\OptionsFormBaidu.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	</ItemGroup>
+
+</Project>

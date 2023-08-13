@@ -1,0 +1,5 @@
+MultiSupplierMTPlugin/bin/
+MultiSupplierMTPlugin/obj/
+TestClient/bin/
+TestClient/obj/
+.vs

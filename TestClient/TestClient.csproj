@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+	<PropertyGroup>
+		<TargetFrameworks>net48</TargetFrameworks>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<EmbeddedResourceUseDependentUponConvention>true</EmbeddedResourceUseDependentUponConvention>
+		<OutputType>WinExe</OutputType>
+		<UseWindowsForms>true</UseWindowsForms>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="MemoQ.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MultiSupplierMTPlugin\MultiSupplierMTPlugin.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="Kilgray.Utils">
+			<HintPath>..\References\Kilgray.Utils.dll</HintPath>
+		</Reference>
+		<Reference Include="MemoQ.Addins.Common">
+			<HintPath>..\References\MemoQ.Addins.Common.dll</HintPath>
+		</Reference>
+		<Reference Include="MemoQ.MTInterfaces">
+			<HintPath>..\References\MemoQ.MTInterfaces.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Resources.Extensions">
+			<HintPath>..\References\System.Resources.Extensions.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Windows.Forms" />
+	</ItemGroup>
+
+</Project>
