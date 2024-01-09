@@ -1,9 +1,12 @@
-﻿using MultiSupplierMTPlugin.Service;
-using MemoQ.MTInterfaces;
+﻿using MemoQ.MTInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-
+using MultiSupplierMTPlugin.Services;
+using LLK = MultiSupplierMTPlugin.Localized.LocalizedKeyEnum;
+using LLH = MultiSupplierMTPlugin.Localized.LocalizedHelper;
+using MultiSupplierMTPlugin.Localized;
+using MultiSupplierMTPlugin.Helpers;
 
 namespace MultiSupplierMTPlugin
 {
@@ -21,79 +24,96 @@ namespace MultiSupplierMTPlugin
 
             this.options = options;
             this.environment = environment;
-
-            localizeContent();
-        }
-
-        private void localizeContent()
-        {
-            this.Text = LocalizationHelper.Instance.GetResourceString("OptionForm");
-
-            this.labelServiceProvider.Text = LocalizationHelper.Instance.GetResourceString("OptionForm.labelServiceProvider");
-            foreach (string name in MtServiceHolder.GetUniqueNameList())
-            {
-                serviceLocalizedTextMap.Add(LocalizationHelper.Instance.GetResourceString("OptionForm.comboBoxServiceProvider." + name), name);
-            }
-            this.comboBoxServiceProvider.DataSource = new BindingSource(serviceLocalizedTextMap, null);
-            this.comboBoxServiceProvider.DisplayMember = "Key";
-            this.comboBoxServiceProvider.ValueMember = "Value";
-
-            this.labelRequestType.Text = LocalizationHelper.Instance.GetResourceString("OptionForm.labelRequestType");
-            populateComboBoxWithEnum<RequestType>(this.comboBoxRequestType);
-
-            this.checkBoxTagsToEnd.Text = LocalizationHelper.Instance.GetResourceString("OptionForm.checkBoxTagsToEnd");
-            this.checkBoxNormalizeWhitespace.Text = LocalizationHelper.Instance.GetResourceString("OptionForm.checkBoxNormalizeWhitespace");
-
-            this.checkBoxTranslateCache.Text = LocalizationHelper.Instance.GetResourceString("OptionForm.checkBoxTranslateCache");
-
-            this.buttonOK.Text = LocalizationHelper.Instance.GetResourceString("OptionForm.buttonOK");
-            this.buttonCancel.Text = LocalizationHelper.Instance.GetResourceString("OptionForm.buttonCancel");
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
 
-            comboBoxServiceProvider.SelectedValue = options.GeneralSettings.CurrentServiceProvider;
+            localized();
+
+            loadOptions();
+
+            updateCheckBoxState();
+
             comboBoxServiceProvider.SelectedIndexChanged += new EventHandler(comboBoxServiceProvider_SelectedIndexChanged);
+        }
+
+        private void localized()
+        {
+            Text = LLH.G(LLK.OptionForm);
+
+            labelServiceProvider.Text = LLH.G(LLK.OptionForm_LabelServiceProvider);
+            foreach (string name in ServiceHolder.GetUniqueNameList())
+            {
+                if (ILocalizedKeyEnum.TryFromName<LLK>("OptionForm_ComboBoxServiceProvider_" + name, out var keyEnum))
+                {
+                    serviceLocalizedTextMap.Add(LLH.G(keyEnum), name);
+                }
+                else
+                {
+                    serviceLocalizedTextMap.Add(name, name);
+                }
+            }
+            comboBoxServiceProvider.DataSource = new BindingSource(serviceLocalizedTextMap, null);
+            comboBoxServiceProvider.DisplayMember = "Key";
+            comboBoxServiceProvider.ValueMember = "Value";
+
+            labelRequestType.Text = LLH.G(LLK.OptionForm_LabelRequestType);
+            populateComboBoxWithEnum<RequestType>(comboBoxRequestType);
+
+            checkBoxTagsToEnd.Text = LLH.G(LLK.OptionForm_CheckBoxTagsToEnd);
+            checkBoxNormalizeWhitespace.Text = LLH.G(LLK.OptionForm_CheckBoxNormalizeWhitespace);
+
+            checkBoxTranslateCache.Text = LLH.G(LLK.OptionForm_CheckBoxTranslateCache);
+
+            buttonOK.Text = LLH.G(LLK.OptionForm_ButtonOK);
+            buttonCancel.Text = LLH.G(LLK.OptionForm_ButtonCancel);
+        }
+
+        private void loadOptions()
+        {
+            comboBoxServiceProvider.SelectedValue = options.GeneralSettings.CurrentServiceProvider;
 
             selectEnumValueInComboBox(comboBoxRequestType, options.GeneralSettings.RequestType);
 
             checkBoxTagsToEnd.Checked = options.GeneralSettings.InsertRequiredTagsToEnd;
             checkBoxNormalizeWhitespace.Checked = options.GeneralSettings.NormalizeWhitespaceAroundTags;
-            
-            checkBoxTranslateCache.Checked = options.GeneralSettings.EnableCache;
 
-            setCheckBoxState();
+            checkBoxTranslateCache.Checked = options.GeneralSettings.EnableCache;
         }
-        
+
         private void comboBoxServiceProvider_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxServiceProvider.SelectedValue is string name)
             {
-                MultiSupplierMTServiceInterface serviceProvider = MtServiceHolder.GetService(name);
+                MTServiceInterface serviceProvider = ServiceHolder.GetService(name);
 
                 options = serviceProvider.ShowConfig(options, environment, this);
 
                 if (serviceProvider.IsAvailable(options))
-                    this.buttonOK.Enabled = true;
+                {
+                    buttonOK.Enabled = true;
+                }
                 else
-                    this.buttonOK.Enabled = false;
+                {
+                    buttonOK.Enabled = false;
+                }
             }
         }
 
         private void comboBoxRequestType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            setCheckBoxState();
+            updateCheckBoxState();
         }
 
         private void MultiSupplierMTOptionsForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.DialogResult == DialogResult.OK)
+            if (DialogResult == DialogResult.OK)
             {
-                options.GeneralSettings.CurrentServiceProvider = (string)this.comboBoxServiceProvider.SelectedValue;
+                options.GeneralSettings.CurrentServiceProvider = (string)comboBoxServiceProvider.SelectedValue;
 
-                ComboBoxItem selectedRequestTypeItem = (ComboBoxItem)this.comboBoxRequestType.SelectedItem;
+                ComboBoxItem selectedRequestTypeItem = (ComboBoxItem)comboBoxRequestType.SelectedItem;
                 RequestType selectedRequestType = (RequestType)selectedRequestTypeItem.Value;
                 options.GeneralSettings.RequestType = selectedRequestType;
 
@@ -104,9 +124,9 @@ namespace MultiSupplierMTPlugin
             }
         }
 
-        private void setCheckBoxState()
+        private void updateCheckBoxState()
         {
-            ComboBoxItem selectedItem = (ComboBoxItem)this.comboBoxRequestType.SelectedItem;
+            ComboBoxItem selectedItem = (ComboBoxItem)comboBoxRequestType.SelectedItem;
             RequestType selectedRequestType = (RequestType)selectedItem.Value;
 
             checkBoxTagsToEnd.Enabled =
@@ -142,8 +162,14 @@ namespace MultiSupplierMTPlugin
 
             foreach (TEnum value in Enum.GetValues(typeof(TEnum)))
             {
-                string localizedText = LocalizationHelper.Instance.GetResourceString("OptionForm.comboBoxRequestType." + value.ToString());
-                comboBox.Items.Add(new ComboBoxItem(localizedText, value));
+                if (ILocalizedKeyEnum.TryFromName<LLK>("OptionForm_ComboBoxRequestType_" + value.ToString(), out var keyEnum))
+                {
+                    comboBox.Items.Add(new ComboBoxItem(LLH.G(keyEnum), value));
+                }
+                else
+                {
+                    comboBox.Items.Add(new ComboBoxItem(value.ToString(), value));
+                }
             }
         }
 

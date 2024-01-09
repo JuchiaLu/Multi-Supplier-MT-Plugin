@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 using MemoQ.Addins.Common.DataStructures;
 using MemoQ.Addins.Common.Utils;
 using MemoQ.MTInterfaces;
-
+using MultiSupplierMTPlugin.Helpers;
+using MultiSupplierMTPlugin.Services;
 
 namespace MultiSupplierMTPlugin
 {
     public class MultiSupplierMTSession : ISessionWithMetadata, ISessionForStoringTranslations
     {
-        private readonly MultiSupplierMTServiceInterface mtService;
+        private readonly MTServiceInterface mtService;
 
         private readonly string srcLangCode;
 
@@ -23,7 +24,7 @@ namespace MultiSupplierMTPlugin
 
         private static readonly ConcurrentDictionary<string, string> cache = new ConcurrentDictionary<string, string>();
 
-        public MultiSupplierMTSession(MultiSupplierMTOptions options, MultiSupplierMTServiceInterface mtService, string srcLangCode, string trgLangCode)
+        public MultiSupplierMTSession(MultiSupplierMTOptions options, MTServiceInterface mtService, string srcLangCode, string trgLangCode)
         {
             this.options = options;
             this.mtService = mtService;
@@ -100,7 +101,7 @@ namespace MultiSupplierMTPlugin
                                 await rateLimitHelper.ThreadHoldWaitting();
 
                                 int waittingMs;
-                                while ((waittingMs = rateLimitHelper.GetQpsWaittingMs()) > 0)
+                                while ((waittingMs = rateLimitHelper.GetQpwWaittingMs()) > 0)
                                 {
                                     await Task.Delay(waittingMs);
                                 }

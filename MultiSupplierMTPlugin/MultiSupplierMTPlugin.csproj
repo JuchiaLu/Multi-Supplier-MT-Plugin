@@ -3,6 +3,8 @@
 	<PropertyGroup>
 		<TargetFrameworks>net48</TargetFrameworks>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<AssemblyVersion>1.1.0</AssemblyVersion>
+		<FileVersion>1.1.0</FileVersion>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -30,28 +32,31 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Service\OptionsFormXunfei.cs">
+	  <Compile Update="Forms\OptionsFormOpenai.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Service\OptionsFormYoudao.cs">
+	  <Compile Update="Forms\OptionsFormXunfei.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Service\OptionsFormNiutrans.cs">
+	  <Compile Update="Forms\OptionsFormYoudao.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Service\OptionsFormCaiyun.cs">
+	  <Compile Update="Forms\OptionsFormNiutrans.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Service\OptionsFormHuoshan.cs">
+	  <Compile Update="Forms\OptionsFormCaiyun.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Service\OptionsFormTencent.cs">
+	  <Compile Update="Forms\OptionsFormHuoshan.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Service\OptionsFormAliyun.cs">
+	  <Compile Update="Forms\OptionsFormTencent.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Service\OptionsFormBaidu.cs">
+	  <Compile Update="Forms\OptionsFormAliyun.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Forms\OptionsFormBaidu.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
 	</ItemGroup>

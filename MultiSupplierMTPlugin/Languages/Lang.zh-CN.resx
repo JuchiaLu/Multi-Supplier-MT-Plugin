@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="02dbdf25-02a9-4cd3-8a8e-d54290fa2fe6" xml:space="preserve">
+    <value>百度翻译</value>
+  </data>
+  <data name="07a89e6b-7ae9-4dab-8c63-d78fc747ea82" xml:space="preserve">
+    <value>OpenAI GPT</value>
+  </data>
+  <data name="095b951d-6052-4a60-a235-7ef4c08a31ef" xml:space="preserve">
+    <value>包括格式标记和内联标签，（用 Xml 表示）</value>
+  </data>
+  <data name="099c2f58-da48-48b4-af32-91e172fc0709" xml:space="preserve">
+    <value>Api Id</value>
+  </data>
+  <data name="0f95184c-1752-40f7-9786-d1ab711e781d" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="10a4fe53-0ce6-4943-8593-2f7c6bcca77a" xml:space="preserve">
+    <value>百度翻译（需配置）</value>
+  </data>
+  <data name="134a02b6-6c85-4425-981c-36f0dd5e121f" xml:space="preserve">
+    <value>Access Key</value>
+  </data>
+  <data name="167c4588-e75f-440e-8948-9baab3d30199" xml:space="preserve">
+    <value>微软翻译（内置）</value>
+  </data>
+  <data name="18adb34c-014b-44fb-b7a7-86e7f90572f7" xml:space="preserve">
+    <value>专业版</value>
+  </data>
+  <data name="300fc67c-0b73-42e1-8e5f-6594aaf0ab8f" xml:space="preserve">
+    <value>Base Url</value>
+  </data>
+  <data name="362f169d-dc50-42d4-bb28-e54ced53ea5b" xml:space="preserve">
+    <value>App Id</value>
+  </data>
+  <data name="3907107c-22eb-4572-b41f-1ace9ce191b4" xml:space="preserve">
+    <value>Token</value>
+  </data>
+  <data name="3b683478-2921-4ae5-89a4-ff32d98bfd57" xml:space="preserve">
+    <value>Secret Id</value>
+  </data>
+  <data name="3e2dfcbe-645b-4c7d-aef6-f3483ee97110" xml:space="preserve">
+    <value>火山翻译（需配置）</value>
+  </data>
+  <data name="42bbc36b-7616-45cb-ae8b-fa2575d11849" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="44230611-1c83-4e2b-b13a-23b01dca3d69" xml:space="preserve">
+    <value>小牛翻译（需配置）</value>
+  </data>
+  <data name="44835cf9-2e46-401b-aafb-380bfa0b45c4" xml:space="preserve">
+    <value>腾讯翻译</value>
+  </data>
+  <data name="4dcdcb0b-f653-4349-b9af-7314712da29c" xml:space="preserve">
+    <value>App Key</value>
+  </data>
+  <data name="4ec208c3-410c-4daa-8cb7-8a1dbc8d9b13" xml:space="preserve">
+    <value>多提供商机器翻译插件</value>
+  </data>
+  <data name="4f5424da-0e9b-4248-9a34-68846494ba2a" xml:space="preserve">
+    <value>将原文中的内联标签追加到译文后</value>
+  </data>
+  <data name="585eb308-fa75-4952-8889-692e54dbf0bf" xml:space="preserve">
+    <value>检测</value>
+  </data>
+  <data name="61ceadf9-9ab8-4158-9faa-c7068d6d893c" xml:space="preserve">
+    <value>Key Secret</value>
+  </data>
+  <data name="65cfa610-5c9e-4fc0-acc9-e67e271adbcb" xml:space="preserve">
+    <value>有道翻译</value>
+  </data>
+  <data name="6961769b-5c4f-4166-ad37-ea1f3fa756b7" xml:space="preserve">
+    <value>Secret Key</value>
+  </data>
+  <data name="7259d737-eca2-4e08-8f05-7ca50bb2a056" xml:space="preserve">
+    <value>谷歌翻译（内置）</value>
+  </data>
+  <data name="73ce8a1b-a18a-4ba6-b0da-e0f9dc61a31b" xml:space="preserve">
+    <value>Secret Key</value>
+  </data>
+  <data name="73f9781d-d68f-45fa-bcc4-032e077895ed" xml:space="preserve">
+    <value>启用翻译缓存</value>
+  </data>
+  <data name="7699f7c8-f881-4fc1-b3d6-26f6fb3886ad" xml:space="preserve">
+    <value>包括格式标记和内联标签，（用 Html 表示）</value>
+  </data>
+  <data name="81752443-6399-441a-9243-82563c012d8f" xml:space="preserve">
+    <value>阿里翻译</value>
+  </data>
+  <data name="865a1c4e-4701-47d3-9b26-f88a76c8bc02" xml:space="preserve">
+    <value>App Key</value>
+  </data>
+  <data name="87136671-38b8-41d0-8e9b-5151282e2cc3" xml:space="preserve">
+    <value>Org(optional)</value>
+  </data>
+  <data name="877868a5-db27-45fc-b1ad-3ce6da4d0d9e" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="8793bde6-cdf1-4fca-a7db-2d42251c4097" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
+  <data name="8b08223d-ff3a-4618-8f53-70d3abfe899e" xml:space="preserve">
+    <value>Prompt</value>
+  </data>
+  <data name="8b613cee-28a1-47b1-905e-4cc5a358f01f" xml:space="preserve">
+    <value>OpenAI GPT（需配置）</value>
+  </data>
+  <data name="8bedbcea-d908-4fe6-ae86-03e25c0a558b" xml:space="preserve">
+    <value>有道翻译（需配置）</value>
+  </data>
+  <data name="8ca6b805-41fe-4830-8d5b-e16673d712b5" xml:space="preserve">
+    <value>小牛翻译</value>
+  </data>
+  <data name="8cd43629-c5ba-4cba-8949-2c7824e246df" xml:space="preserve">
+    <value>Api Key</value>
+  </data>
+  <data name="8e1fd442-84b4-4051-aa7e-2da7adef70c6" xml:space="preserve">
+    <value>版 本</value>
+  </data>
+  <data name="9141043a-d8df-4ca0-95aa-a941c7fcff03" xml:space="preserve">
+    <value>彩云翻译</value>
+  </data>
+  <data name="98c68a7d-ea6a-4a0e-bb26-51ca50fb13d8" xml:space="preserve">
+    <value>检测失败！</value>
+  </data>
+  <data name="98f52dda-407e-4558-bb5b-c5d1be9bae2a" xml:space="preserve">
+    <value>请求类型</value>
+  </data>
+  <data name="9a1ae0fa-1be3-4cf9-95d2-7d4f1337d2d4" xml:space="preserve">
+    <value>Api Key</value>
+  </data>
+  <data name="9ce291a1-d735-4b7b-b8a6-0a4fe9f58d27" xml:space="preserve">
+    <value>普通版</value>
+  </data>
+  <data name="a00b8e13-dd40-4133-8725-61c32750b034" xml:space="preserve">
+    <value>讯飞翻译（需配置）</value>
+  </data>
+  <data name="a3700cd7-ce8d-4eb6-bf72-dfb8c0a8fc25" xml:space="preserve">
+    <value>阿里翻译（需配置）</value>
+  </data>
+  <data name="a89e15a0-c08f-47a0-a517-be32d5200068" xml:space="preserve">
+    <value>讯飞翻译</value>
+  </data>
+  <data name="ab51f3ef-e791-48db-aba8-37c9435d7396" xml:space="preserve">
+    <value>Api Key</value>
+  </data>
+  <data name="ae384aee-4b30-4544-a587-c3669e8dddae" xml:space="preserve">
+    <value>App Secret</value>
+  </data>
+  <data name="b5661636-c435-49a7-81c6-cfd668a39e36" xml:space="preserve">
+    <value>Key Id</value>
+  </data>
+  <data name="bebacba9-8a50-4039-a8a2-80b28772e8ca" xml:space="preserve">
+    <value>腾讯翻译（需配置）</value>
+  </data>
+  <data name="c1f403bd-c452-4ef1-ada7-6bc70f4f68ce" xml:space="preserve">
+    <value>彩云翻译（需配置）</value>
+  </data>
+  <data name="c2c08303-5d5d-4341-84cf-0b4c7eb61a7f" xml:space="preserve">
+    <value>归一化译文中内联标签旁边的空格</value>
+  </data>
+  <data name="d4682b5e-a68b-49bb-9811-4d0138c0b50a" xml:space="preserve">
+    <value>火山翻译</value>
+  </data>
+  <data name="d5b68680-860a-43b6-a34f-f9b06672361c" xml:space="preserve">
+    <value>提供商</value>
+  </data>
+  <data name="eb2b3011-77f5-498c-b3eb-15719ec439be" xml:space="preserve">
+    <value>仅纯文本</value>
+  </data>
+  <data name="eb524eef-5269-4b05-a9f5-b922688c32f5" xml:space="preserve">
+    <value>测试翻译（内置）</value>
+  </data>
+  <data name="ed3b6ee6-f020-4f97-ae01-b5e3f139cd60" xml:space="preserve">
+    <value>包括格式标记，（用 Html 表示）</value>
+  </data>
+  <data name="f5195f4d-e383-46cc-ae13-a2cb548b679e" xml:space="preserve">
+    <value>检测成功！</value>
+  </data>
+  <data name="f8289042-679e-4a55-aa7c-a0c00ee640a0" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="f926c81f-7e8c-4d93-819a-90d67f61e8f9" xml:space="preserve">
+    <value>包括格式标记，（用 Xml 表示）</value>
+  </data>
+  <data name="ff38c851-5663-4b7d-8c85-4bea0ce0b058" xml:space="preserve">
+    <value>Api Secret</value>
+  </data>
+</root>

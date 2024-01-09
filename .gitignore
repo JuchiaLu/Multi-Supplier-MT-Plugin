@@ -2,4 +2,5 @@ MultiSupplierMTPlugin/bin/
 MultiSupplierMTPlugin/obj/
 TestClient/bin/
 TestClient/obj/
+release/
 .vs

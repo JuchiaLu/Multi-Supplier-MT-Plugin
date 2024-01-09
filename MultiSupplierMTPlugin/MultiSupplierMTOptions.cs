@@ -1,18 +1,16 @@
 ﻿using MemoQ.MTInterfaces;
-using System.Collections.Generic;
+using MultiSupplierMTPlugin.Options;
 
 namespace MultiSupplierMTPlugin
 {
     public class MultiSupplierMTOptions : PluginSettingsObject<MultiSupplierMTGeneralOptions, MultiSupplierMTSecureOptions>
     {
-        public MultiSupplierMTOptions(PluginSettings serializedSettings)
-            : base(serializedSettings)
+        public MultiSupplierMTOptions(PluginSettings serializedSettings) : base(serializedSettings)
         {
 
         }
 
-        public MultiSupplierMTOptions(MultiSupplierMTGeneralOptions generalOptions, MultiSupplierMTSecureOptions secureOptions)
-            : base(generalOptions, secureOptions)
+        public MultiSupplierMTOptions(MultiSupplierMTGeneralOptions generalOptions, MultiSupplierMTSecureOptions secureOptions) : base(generalOptions, secureOptions)
         {
 
         }
@@ -27,102 +25,13 @@ namespace MultiSupplierMTPlugin
         BothFormattingAndTagsWithHtml = 4,
     }
 
-    public class BaiduGeneralOptions
-    {
-        public bool Checked = false;
-    }
-
-    public class TencentGeneralOptions
-    {
-        public bool Checked = false;
-    }
-
-    public class AliyunGeneralOptions 
-    {
-        public bool Checked = false;
-
-        public string ServiceType = "general";
-    }
-
-    public class HuoshanGeneralOptions
-    {
-        public bool Checked = false;
-    }
-
-    public class CaiyunGeneralOptions
-    {
-        public bool Checked = false;
-    }
-
-    public class NiutransGeneralOptions
-    {
-        public bool Checked = false;
-    }
-
-    public class YoudaoGeneralOptions
-    {
-        public bool Checked = false;
-    }
-
-    public class XunfeiGeneralOptions
-    {
-        public bool Checked = false;
-    }
-
-    public class BaiduSecureOptions
-    {
-        public string AppId = string.Empty;
-        public string AppKey = string.Empty;
-    }
-
-    public class TencentSecureOptions
-    {
-        public string SecretId = string.Empty;
-        public string SecretKey = string.Empty;
-    }
-
-    public class AliyunSecureOptions
-    {
-        public string AccessKeyId = string.Empty;
-        public string AccessKeySecret = string.Empty;
-    }
-
-    public class HuoshanSecureOptions
-    {
-        public string AccessKey = string.Empty;
-        public string SecretKey = string.Empty;
-    }
-
-    public class CaiyunSecureOptions
-    {
-        public string Token = string.Empty;
-    }
-
-    public class NiutransSecureOptions
-    {
-        public string Apikey = string.Empty;
-    }
-
-    public class YoudaoSecureOptions
-    {
-        public string AppKey = string.Empty;
-        public string AppSecret = string.Empty;
-    }
-
-    public class XunfeiSecureOptions
-    {
-        public string AppId = string.Empty;
-        public string ApiKey = string.Empty;
-        public string ApiSecret = string.Empty;
-    }
-
     public class MultiSupplierMTGeneralOptions
     {
         public bool EnableCache = true;
         public bool InsertRequiredTagsToEnd = false;
         public bool NormalizeWhitespaceAroundTags = false;
 
-        public string CurrentServiceProvider = "Microsoft Built In";
+        public string CurrentServiceProvider = "MicrosoftBuiltIn";
 
         public RequestType RequestType = RequestType.Plaintext;
 
@@ -141,6 +50,8 @@ namespace MultiSupplierMTPlugin
         public YoudaoGeneralOptions YoudaoGeneralOptions = new YoudaoGeneralOptions();
 
         public XunfeiGeneralOptions XunfeiGeneralOptions = new XunfeiGeneralOptions();
+
+        public OpenaiGeneralOptions OpenaiGeneralOptions = new OpenaiGeneralOptions();
     }
 
     public class MultiSupplierMTSecureOptions
@@ -160,5 +71,7 @@ namespace MultiSupplierMTPlugin
         public YoudaoSecureOptions YoudaoSecureOptions = new YoudaoSecureOptions();
 
         public XunfeiSecureOptions XunfeiSecureOptions = new XunfeiSecureOptions();
+
+        public OpenaiSecureOptions OpenaiSecureOptions = new OpenaiSecureOptions();
     }
 }

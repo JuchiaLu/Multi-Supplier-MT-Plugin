@@ -2,13 +2,13 @@
 using System.Drawing;
 using System.Reflection;
 using MemoQ.MTInterfaces;
-
+using MultiSupplierMTPlugin.Services;
 
 namespace MultiSupplierMTPlugin
 {
     public class MultiSupplierMTEngine : EngineBase
     {
-        private readonly MultiSupplierMTServiceInterface mtService;
+        private readonly MTServiceInterface mtService;
 
         private readonly string srcLangCode;
 
@@ -16,7 +16,7 @@ namespace MultiSupplierMTPlugin
 
         private readonly MultiSupplierMTOptions options;
 
-        public MultiSupplierMTEngine(MultiSupplierMTOptions options, MultiSupplierMTServiceInterface mtService, string srcLangCode, string trgLangCode)
+        public MultiSupplierMTEngine(MultiSupplierMTOptions options, MTServiceInterface mtService, string srcLangCode, string trgLangCode)
         {
             this.options = options;
             this.mtService = mtService;

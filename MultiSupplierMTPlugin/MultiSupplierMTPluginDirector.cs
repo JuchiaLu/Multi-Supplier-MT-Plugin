@@ -1,9 +1,10 @@
 ﻿using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
-using MultiSupplierMTPlugin.Service;
 using MemoQ.Addins.Common.Framework;
 using MemoQ.MTInterfaces;
+using MultiSupplierMTPlugin.Services;
+using MultiSupplierMTPlugin.Helpers;
 
 namespace MultiSupplierMTPlugin
 {
@@ -82,13 +83,13 @@ namespace MultiSupplierMTPlugin
             {
                 this.environment = value;
 
-                LocalizationHelper.Instance.SetEnvironment(value);
+                //LocalizedHelper.SetEnvironment(value);
             }
         }
 
         public override PluginSettings EditOptions(IWin32Window parentForm, PluginSettings settings)
         {
-            MultiSupplierMTOptions options = new MultiSupplierMTOptions(settings);
+            var options = new MultiSupplierMTOptions(settings);
 
             using (var form = new MultiSupplierMTOptionsForm(options, environment))
             {
@@ -102,18 +103,18 @@ namespace MultiSupplierMTPlugin
 
         public override bool IsLanguagePairSupported(LanguagePairSupportedParams args)
         {
-            MultiSupplierMTOptions options = new MultiSupplierMTOptions(args.PluginSettings);
+            var options = new MultiSupplierMTOptions(args.PluginSettings);
 
-            MultiSupplierMTServiceInterface currentServiceProvider = MtServiceHolder.GetService(options.GeneralSettings.CurrentServiceProvider);
+            var currentServiceProvider = ServiceHolder.GetService(options.GeneralSettings.CurrentServiceProvider);
 
             return currentServiceProvider.IsLanguagePairSupported(args.SourceLangCode, args.TargetLangCode);
         }
 
         public override IEngine2 CreateEngine(CreateEngineParams args)
         {
-            MultiSupplierMTOptions options = new MultiSupplierMTOptions(args.PluginSettings);
+            var options = new MultiSupplierMTOptions(args.PluginSettings);
 
-            MultiSupplierMTServiceInterface currentServiceProvider = MtServiceHolder.GetService(options.GeneralSettings.CurrentServiceProvider);
+            var currentServiceProvider = ServiceHolder.GetService(options.GeneralSettings.CurrentServiceProvider);
             
             return new MultiSupplierMTEngine(options, currentServiceProvider, args.SourceLangCode, args.TargetLangCode);
         }
