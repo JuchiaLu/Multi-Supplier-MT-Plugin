@@ -18,7 +18,7 @@
 
 ### 标签请求类型解释
 
-![](https://raw.githubusercontent.com/JuchiaLu/Multi-Supplier-MT-Plugin/master/images/formattings and tags.png)
+![](https://raw.githubusercontent.com/JuchiaLu/Multi-Supplier-MT-Plugin/master/images/formattings%20and%20tags.png)
 
 原文中“Hello”是加粗的，“World!”是红色字体，机器翻译时的原文请求区别如下：
 
@@ -107,7 +107,7 @@
 
 ### 如何添加其他提供商
 
-如果你是开发者，想快速的添加其他翻译服务提供商，你无需了解 memoQ 插件的工作流程（当然，我已把[官方]()文档翻译成[中文]()，不妨也看看），也无需关心批量、缓存、并发、限流，你只需要实现 `MultiSupplierMTServiceInterface.cs` 接口：
+如果你是开发者，想快速的添加其他翻译服务提供商，你无需了解 memoQ 插件的工作流程（当然，我已把[官方](https://github.com/JuchiaLu/Multi-Supplier-MT-Plugin/blob/main/doc/MT_SDK.docx)文档翻译成[中文](https://github.com/JuchiaLu/Multi-Supplier-MT-Plugin/blob/main/doc/MT_SDK_zho-CN.docx)，不妨也看看），也无需关心批量、缓存、并发、限流，你只需要实现 `MultiSupplierMTServiceInterface.cs` 接口：
 
 ```C#
 public abstract class MultiSupplierMTServiceInterface
