@@ -156,6 +156,9 @@
   <data name="3b683478-2921-4ae5-89a4-ff32d98bfd57" xml:space="preserve">
     <value>Secret Id</value>
   </data>
+  <data name="3c815cd6-9f40-41e9-aef4-36153af826ca" xml:space="preserve">
+    <value>PaPaGo 翻译（需配置）</value>
+  </data>
   <data name="3e2dfcbe-645b-4c7d-aef6-f3483ee97110" xml:space="preserve">
     <value>火山翻译（需配置）</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="44230611-1c83-4e2b-b13a-23b01dca3d69" xml:space="preserve">
     <value>小牛翻译（需配置）</value>
+  </data>
+  <data name="445a5731-6292-4d94-9b54-a7bf456058c2" xml:space="preserve">
+    <value>Client ID</value>
   </data>
   <data name="44835cf9-2e46-401b-aafb-380bfa0b45c4" xml:space="preserve">
     <value>腾讯翻译</value>
@@ -197,6 +203,9 @@
   </data>
   <data name="73f9781d-d68f-45fa-bcc4-032e077895ed" xml:space="preserve">
     <value>启用翻译缓存</value>
+  </data>
+  <data name="76845133-ca2a-4cd5-a5a2-3218e656b381" xml:space="preserve">
+    <value>PaPaGo 翻译</value>
   </data>
   <data name="7699f7c8-f881-4fc1-b3d6-26f6fb3886ad" xml:space="preserve">
     <value>包括格式标记和内联标签，（用 Html 表示）</value>
@@ -293,6 +302,9 @@
   </data>
   <data name="f5195f4d-e383-46cc-ae13-a2cb548b679e" xml:space="preserve">
     <value>检测成功！</value>
+  </data>
+  <data name="f66898c7-cc1c-4b2d-9a46-ce31c53dff2f" xml:space="preserve">
+    <value>Client Secret</value>
   </data>
   <data name="f8289042-679e-4a55-aa7c-a0c00ee640a0" xml:space="preserve">
     <value>Model</value>

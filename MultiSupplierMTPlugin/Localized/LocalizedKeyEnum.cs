@@ -79,6 +79,9 @@ namespace MultiSupplierMTPlugin.Localized
         [LocalizedKey("8b613cee-28a1-47b1-905e-4cc5a358f01f", "OpenAI GPT (Need Config)")] // OpenAI GPT（需配置）
         public static readonly LocalizedKeyEnum OptionForm_ComboBoxServiceProvider_OpenAI = new LocalizedKeyEnum(nameof(OptionForm_ComboBoxServiceProvider_OpenAI));
 
+        [LocalizedKey("3c815cd6-9f40-41e9-aef4-36153af826ca", "PaPaGo (Need Config)")] // PaPaGo 翻译（需配置）
+        public static readonly LocalizedKeyEnum OptionForm_ComboBoxServiceProvider_PaPaGo = new LocalizedKeyEnum(nameof(OptionForm_ComboBoxServiceProvider_PaPaGo));
+
 
         [LocalizedKey("585eb308-fa75-4952-8889-692e54dbf0bf", "Check")] // 检测
         public static readonly LocalizedKeyEnum OptionForm_LinkLabelCheck = new LocalizedKeyEnum(nameof(OptionForm_LinkLabelCheck));
@@ -205,5 +208,15 @@ namespace MultiSupplierMTPlugin.Localized
 
         [LocalizedKey("8b08223d-ff3a-4618-8f53-70d3abfe899e", "Prompt")] // Prompt
         public static readonly LocalizedKeyEnum OptionFormOpenai_LabelPrompt = new LocalizedKeyEnum(nameof(OptionFormOpenai_LabelPrompt));
+
+
+        [LocalizedKey("76845133-ca2a-4cd5-a5a2-3218e656b381", "PaPaGo")] // PaPaGo 翻译
+        public static readonly LocalizedKeyEnum OptionFormPaPaGo = new LocalizedKeyEnum(nameof(OptionFormPaPaGo));
+
+        [LocalizedKey("445a5731-6292-4d94-9b54-a7bf456058c2", "Client ID")] // Client ID
+        public static readonly LocalizedKeyEnum OptionFormPaPaGo_LabelClientID = new LocalizedKeyEnum(nameof(OptionFormPaPaGo_LabelClientID));
+
+        [LocalizedKey("f66898c7-cc1c-4b2d-9a46-ce31c53dff2f", "Client Secret")] // Client Secret
+        public static readonly LocalizedKeyEnum OptionFormPaPaGo_LabelClientSecret = new LocalizedKeyEnum(nameof(OptionFormPaPaGo_LabelClientSecret));
     }
 }

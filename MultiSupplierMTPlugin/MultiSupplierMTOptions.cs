@@ -52,6 +52,8 @@ namespace MultiSupplierMTPlugin
         public XunfeiGeneralOptions XunfeiGeneralOptions = new XunfeiGeneralOptions();
 
         public OpenaiGeneralOptions OpenaiGeneralOptions = new OpenaiGeneralOptions();
+
+        public PaPaGoGeneralOptions PaPaGoGeneralOptions = new PaPaGoGeneralOptions();
     }
 
     public class MultiSupplierMTSecureOptions
@@ -73,5 +75,7 @@ namespace MultiSupplierMTPlugin
         public XunfeiSecureOptions XunfeiSecureOptions = new XunfeiSecureOptions();
 
         public OpenaiSecureOptions OpenaiSecureOptions = new OpenaiSecureOptions();
+
+        public PaPaGoSecureOptions PaPaGoSecureOptions = new PaPaGoSecureOptions();
     }
 }
