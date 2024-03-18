@@ -1,6 +1,6 @@
 ﻿namespace MultiSupplierMTPlugin.Forms
 {
-    partial class OptionsFormPaPaGo
+    partial class OptionsFormPapago
     {
         /// <summary>
         /// Required designer variable.
@@ -39,39 +39,40 @@
             this.labelCheckResult = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // labelAccessKey
+            // labelClientID
             // 
             this.labelClientID.Location = new System.Drawing.Point(17, 22);
             this.labelClientID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelClientID.Name = "labelAccessKey";
+            this.labelClientID.Name = "labelClientID";
             this.labelClientID.Size = new System.Drawing.Size(99, 18);
             this.labelClientID.TabIndex = 0;
             this.labelClientID.Text = "Client ID";
             // 
-            // labelSecretKey
+            // labelClientSecret
             // 
+            this.labelClientSecret.AutoSize = true;
             this.labelClientSecret.Location = new System.Drawing.Point(17, 61);
             this.labelClientSecret.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelClientSecret.Name = "labelSecretKey";
-            this.labelClientSecret.Size = new System.Drawing.Size(99, 18);
+            this.labelClientSecret.Name = "labelClientSecret";
+            this.labelClientSecret.Size = new System.Drawing.Size(111, 15);
             this.labelClientSecret.TabIndex = 2;
             this.labelClientSecret.Text = "Client Secret";
             // 
-            // textBoxAccessKey
+            // textBoxClientID
             // 
-            this.textBoxClientID.Location = new System.Drawing.Point(121, 19);
+            this.textBoxClientID.Location = new System.Drawing.Point(136, 19);
             this.textBoxClientID.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBoxClientID.Name = "textBoxAccessKey";
-            this.textBoxClientID.Size = new System.Drawing.Size(380, 25);
+            this.textBoxClientID.Name = "textBoxClientID";
+            this.textBoxClientID.Size = new System.Drawing.Size(365, 25);
             this.textBoxClientID.TabIndex = 1;
             // 
-            // textBoxSecretKey
+            // textBoxClientSecret
             // 
-            this.textBoxClientSecret.Location = new System.Drawing.Point(121, 58);
+            this.textBoxClientSecret.Location = new System.Drawing.Point(136, 58);
             this.textBoxClientSecret.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.textBoxClientSecret.Name = "textBoxSecretKey";
+            this.textBoxClientSecret.Name = "textBoxClientSecret";
             this.textBoxClientSecret.PasswordChar = '*';
-            this.textBoxClientSecret.Size = new System.Drawing.Size(380, 25);
+            this.textBoxClientSecret.Size = new System.Drawing.Size(365, 25);
             this.textBoxClientSecret.TabIndex = 3;
             // 
             // buttonOK
@@ -131,7 +132,7 @@
             this.labelCheckResult.Size = new System.Drawing.Size(380, 25);
             this.labelCheckResult.TabIndex = 5;
             // 
-            // OptionsFormPaPaGo
+            // OptionsFormPapago
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -151,11 +152,11 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "OptionsFormPaPaGo";
+            this.Name = "OptionsFormPapago";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "PaPaGo";
+            this.Text = "Papago";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.onFormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();

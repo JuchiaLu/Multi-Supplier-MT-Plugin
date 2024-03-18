@@ -1,7 +1,7 @@
 ﻿
 namespace MultiSupplierMTPlugin.Options
 {
-    public class PaPaGoGeneralOptions
+    public class PapagoGeneralOptions
     {
         public bool Checked = false;
     }

@@ -17,7 +17,7 @@ using System.Windows.Forms;
 
 namespace MultiSupplierMTPlugin.Service
 {
-    public class ServicePaPaGo : MTServiceInterface
+    public class ServicePapago : MTServiceInterface
     {
         private class TransRequest
         {
@@ -69,15 +69,9 @@ namespace MultiSupplierMTPlugin.Service
             {"rus", "ru"},
             {"ger", "de"},
             {"ita", "it"},
-            //{"tur", "tr"},
-            //{"por-PT", "pt"},
-            //{"por", "pt"},
             {"vie", "vi"},
             {"ind", "id"},
             {"tha", "th"},
-            //{"msa", "ms"},
-            //{"ara", "ar"},
-            //{"hin", "hi"},
         };
 
         private static readonly HttpClient httpClient = new HttpClient();
@@ -85,14 +79,14 @@ namespace MultiSupplierMTPlugin.Service
 
         public override MultiSupplierMTOptions ShowConfig(MultiSupplierMTOptions options, IEnvironment environment, IWin32Window parentForm)
         {
-            new OptionsFormPaPaGo(options, environment).ShowDialog(parentForm);
+            new OptionsFormPapago(options, environment).ShowDialog(parentForm);
 
             return options;
         }
 
         public override bool IsAvailable(MultiSupplierMTOptions options)
         {
-            return options.GeneralSettings.PaPaGoGeneralOptions.Checked; ;
+            return options.GeneralSettings.PapagoGeneralOptions.Checked; ;
         }
 
         public override bool IsLanguagePairSupported(string srcLangCode, string trgLangCode)
@@ -117,15 +111,15 @@ namespace MultiSupplierMTPlugin.Service
 
         public override string UniqueName()
         {
-            return "PaPaGo";
+            return "Papago";
         }
 
         public override async Task<List<string>> BatchTranslate(MultiSupplierMTOptions options, List<string> texts, string srcLangCode, string trgLangCode, List<string> tmSources, List<string> tmTargets, MTRequestMetadata metaData)
         {
             string[] result = new string[texts.Count];
 
-            string clientID = options.SecureSettings.PaPaGoSecureOptions.ClientID;
-            string clientSecret = options.SecureSettings.PaPaGoSecureOptions.ClientSecret;
+            string clientID = options.SecureSettings.PapagoSecureOptions.ClientID;
+            string clientSecret = options.SecureSettings.PapagoSecureOptions.ClientSecret;
 
             var transRequest = new TransRequest()
             {
@@ -156,10 +150,10 @@ namespace MultiSupplierMTPlugin.Service
         public static async Task<bool> Check(string appId, string appKey)
         {
             var tempOptions = new MultiSupplierMTOptions(new MultiSupplierMTGeneralOptions(), new MultiSupplierMTSecureOptions());
-            tempOptions.SecureSettings.PaPaGoSecureOptions.ClientID = appId;
-            tempOptions.SecureSettings.PaPaGoSecureOptions.ClientSecret = appKey;
+            tempOptions.SecureSettings.PapagoSecureOptions.ClientID = appId;
+            tempOptions.SecureSettings.PapagoSecureOptions.ClientSecret = appKey;
 
-            var service = new ServicePaPaGo();
+            var service = new ServicePapago();
             try
             {
                 await service.BatchTranslate(tempOptions, new List<string>() { "test" }, "eng", "zho-CN", null, null, null);

@@ -1,7 +1,7 @@
 ﻿
 namespace MultiSupplierMTPlugin.Options
 {
-    public class PaPaGoSecureOptions
+    public class PapagoSecureOptions
     {
         public string ClientID = string.Empty;
 

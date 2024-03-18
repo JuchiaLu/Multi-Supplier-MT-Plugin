@@ -53,7 +53,7 @@ namespace MultiSupplierMTPlugin
 
         public OpenaiGeneralOptions OpenaiGeneralOptions = new OpenaiGeneralOptions();
 
-        public PaPaGoGeneralOptions PaPaGoGeneralOptions = new PaPaGoGeneralOptions();
+        public PapagoGeneralOptions PapagoGeneralOptions = new PapagoGeneralOptions();
     }
 
     public class MultiSupplierMTSecureOptions
@@ -76,6 +76,6 @@ namespace MultiSupplierMTPlugin
 
         public OpenaiSecureOptions OpenaiSecureOptions = new OpenaiSecureOptions();
 
-        public PaPaGoSecureOptions PaPaGoSecureOptions = new PaPaGoSecureOptions();
+        public PapagoSecureOptions PapagoSecureOptions = new PapagoSecureOptions();
     }
 }

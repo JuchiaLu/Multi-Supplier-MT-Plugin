@@ -7,7 +7,7 @@ using LLH = MultiSupplierMTPlugin.Localized.LocalizedHelper;
 
 namespace MultiSupplierMTPlugin.Forms
 {
-    public partial class OptionsFormPaPaGo : Form
+    public partial class OptionsFormPapago : Form
     {
         private MultiSupplierMTOptions options;
 
@@ -15,7 +15,7 @@ namespace MultiSupplierMTPlugin.Forms
 
         private bool checkSuccess = false;
         
-        public OptionsFormPaPaGo(MultiSupplierMTOptions options, IEnvironment environment)
+        public OptionsFormPapago(MultiSupplierMTOptions options, IEnvironment environment)
         {
             InitializeComponent();
 
@@ -36,10 +36,10 @@ namespace MultiSupplierMTPlugin.Forms
 
         private void localized()
         {
-            Text = LLH.G(LLK.OptionFormPaPaGo);
+            Text = LLH.G(LLK.OptionFormPapago);
 
-            labelClientID.Text = LLH.G(LLK.OptionFormPaPaGo_LabelClientID);
-            labelClientSecret.Text = LLH.G(LLK.OptionFormPaPaGo_LabelClientSecret);
+            labelClientID.Text = LLH.G(LLK.OptionFormPapago_LabelClientID);
+            labelClientSecret.Text = LLH.G(LLK.OptionFormPapago_LabelClientSecret);
 
             linkLabelCheck.Text = LLH.G(LLK.OptionForm_LinkLabelCheck);
 
@@ -49,10 +49,10 @@ namespace MultiSupplierMTPlugin.Forms
 
         private void loadOptions()
         {
-            textBoxClientID.Text = options.SecureSettings.PaPaGoSecureOptions.ClientID;
-            textBoxClientSecret.Text = options.SecureSettings.PaPaGoSecureOptions.ClientSecret;
+            textBoxClientID.Text = options.SecureSettings.PapagoSecureOptions.ClientID;
+            textBoxClientSecret.Text = options.SecureSettings.PapagoSecureOptions.ClientSecret;
 
-            buttonOK.Enabled = options.GeneralSettings.PaPaGoGeneralOptions.Checked;
+            buttonOK.Enabled = options.GeneralSettings.PapagoGeneralOptions.Checked;
         }
 
         private void bindOptionsChangedEvent()
@@ -91,7 +91,7 @@ namespace MultiSupplierMTPlugin.Forms
             labelCheckResult.Text = "";
             buttonOK.Enabled = false;
 
-            checkSuccess = await ServicePaPaGo.Check(textBoxClientID.Text, textBoxClientSecret.Text);
+            checkSuccess = await ServicePapago.Check(textBoxClientID.Text, textBoxClientSecret.Text);
 
             if (!IsDisposed) 
             {
@@ -113,9 +113,9 @@ namespace MultiSupplierMTPlugin.Forms
         {
             if (DialogResult == DialogResult.OK && checkSuccess)
             {
-                options.SecureSettings.PaPaGoSecureOptions.ClientID = textBoxClientID.Text;
-                options.SecureSettings.PaPaGoSecureOptions.ClientSecret = textBoxClientSecret.Text;
-                options.GeneralSettings.PaPaGoGeneralOptions.Checked = true;
+                options.SecureSettings.PapagoSecureOptions.ClientID = textBoxClientID.Text;
+                options.SecureSettings.PapagoSecureOptions.ClientSecret = textBoxClientSecret.Text;
+                options.GeneralSettings.PapagoGeneralOptions.Checked = true;
             }
         }
     }

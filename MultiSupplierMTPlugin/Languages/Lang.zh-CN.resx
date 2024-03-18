@@ -157,7 +157,7 @@
     <value>Secret Id</value>
   </data>
   <data name="3c815cd6-9f40-41e9-aef4-36153af826ca" xml:space="preserve">
-    <value>PaPaGo 翻译（需配置）</value>
+    <value>Papago 翻译（需配置）</value>
   </data>
   <data name="3e2dfcbe-645b-4c7d-aef6-f3483ee97110" xml:space="preserve">
     <value>火山翻译（需配置）</value>
@@ -205,7 +205,7 @@
     <value>启用翻译缓存</value>
   </data>
   <data name="76845133-ca2a-4cd5-a5a2-3218e656b381" xml:space="preserve">
-    <value>PaPaGo 翻译</value>
+    <value>Papago 翻译</value>
   </data>
   <data name="7699f7c8-f881-4fc1-b3d6-26f6fb3886ad" xml:space="preserve">
     <value>包括格式标记和内联标签，（用 Html 表示）</value>

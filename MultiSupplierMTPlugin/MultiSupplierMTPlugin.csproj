@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Forms\OptionsFormPaPaGo.cs">
+	  <Compile Update="Forms\OptionsFormPapago.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
 	  <Compile Update="Forms\OptionsFormOpenai.cs">
