@@ -1,27 +1,39 @@
-﻿using System;
+﻿using MemoQ.MTInterfaces;
+using MultiSupplierMTPlugin.Helpers;
+using MultiSupplierMTPlugin.Services;
+using System;
 using System.Drawing;
 using System.Reflection;
-using MemoQ.MTInterfaces;
-using MultiSupplierMTPlugin.Services;
 
 namespace MultiSupplierMTPlugin
 {
     public class MultiSupplierMTEngine : EngineBase
     {
-        private readonly MTServiceInterface mtService;
-
         private readonly string srcLangCode;
 
         private readonly string trgLangCode;
 
         private readonly MultiSupplierMTOptions options;
 
-        public MultiSupplierMTEngine(MultiSupplierMTOptions options, MTServiceInterface mtService, string srcLangCode, string trgLangCode)
+        private readonly MultiSupplierMTService mtService;
+
+        private readonly LimitHelper rateLimitHelper;
+
+        private readonly RetryHelper retryHelper;
+
+        private readonly LoggingHelper loggingHelper;
+
+        public MultiSupplierMTEngine(string srcLangCode, string trgLangCode, MultiSupplierMTOptions options, MultiSupplierMTService mtService,
+            LimitHelper rateLimitHelper, RetryHelper retryHelper, LoggingHelper loggingHelper)
         {
-            this.options = options;
-            this.mtService = mtService;
             this.srcLangCode = srcLangCode;
             this.trgLangCode = trgLangCode;
+            this.options = options;
+            this.mtService = mtService;
+
+            this.rateLimitHelper = rateLimitHelper;
+            this.retryHelper = retryHelper;
+            this.loggingHelper = loggingHelper;
         }
 
         #region IEngine Members
@@ -38,17 +50,20 @@ namespace MultiSupplierMTPlugin
 
         public override Image SmallIcon
         {
-            get { return Image.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("MultiSupplierMTPlugin.Icon.bmp")); }
+            get 
+            {
+                return Image.FromStream(Assembly.GetExecutingAssembly().GetManifestResourceStream("MultiSupplierMTPlugin.Icon.png"));
+            }
         }
 
         public override ISession CreateLookupSession()
         {
-            return new MultiSupplierMTSession(this.options, this.mtService, this.srcLangCode, this.trgLangCode);
+            return new MultiSupplierMTSession(srcLangCode, trgLangCode, options, mtService, rateLimitHelper, retryHelper, loggingHelper);
         }
 
         public override ISessionForStoringTranslations CreateStoreTranslationSession()
         {
-            return new MultiSupplierMTSession(this.options, this.mtService, this.srcLangCode, this.trgLangCode);
+            return new MultiSupplierMTSession(srcLangCode, trgLangCode, options, mtService, rateLimitHelper, retryHelper, loggingHelper);
         }
 
         #endregion

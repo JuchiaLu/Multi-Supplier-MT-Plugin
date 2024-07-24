@@ -1,5 +1,7 @@
 ﻿using MemoQ.MTInterfaces;
 using MultiSupplierMTPlugin.Options;
+using System;
+using System.IO;
 
 namespace MultiSupplierMTPlugin
 {
@@ -27,13 +29,30 @@ namespace MultiSupplierMTPlugin
 
     public class MultiSupplierMTGeneralOptions
     {
-        public bool EnableCache = true;
+        public string DataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MemoQ", "Plugins", "MultiSupplierMTPlugin");
+
+        public string CurrentServiceProvider = "MicrosoftBuiltIn";
+        public RequestType RequestType = RequestType.Plaintext;
+
         public bool InsertRequiredTagsToEnd = false;
         public bool NormalizeWhitespaceAroundTags = false;
 
-        public string CurrentServiceProvider = "MicrosoftBuiltIn";
+        public bool EnableCustomRequestLimit = false;
+        public int MaxSegmentsPerRequest = 1;
+        public int WindowSizeMs = 1000;
+        public int MaxRequestsPerWindow = 1;
+        public double RequestSmoothness = 1.0;
+        public int MaxRequestsHold = 1;
+        public int FailedTimeoutMs = 0;
+        public int RetryWaitingMs = 0;
+        public int NumberOfRetries = 0;
 
-        public RequestType RequestType = RequestType.Plaintext;
+        public bool EnableCustomDisplayName = false;
+        public string CustomDisplayName = string.Empty;
+
+        public bool EnableCache = true;
+
+        public bool EnableStatsAndLog = true;
 
         public BaiduGeneralOptions BaiduGeneralOptions = new BaiduGeneralOptions();
 

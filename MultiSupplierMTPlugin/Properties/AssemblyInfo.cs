@@ -1,6 +1,6 @@
-﻿using System.Reflection;
+﻿using MemoQ.Addins.Common.Framework;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using MemoQ.Addins.Common.Framework;
 
 [assembly: Module(ModuleName = "Multi Supplier MT", ClassName = "MultiSupplierMTPlugin.MultiSupplierMTPluginDirector")]
 
@@ -12,7 +12,7 @@ using MemoQ.Addins.Common.Framework;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Juchia")]
 [assembly: AssemblyProduct("MultiSupplierMTPlugin")]
-[assembly: AssemblyCopyright("Copyright © Juchia 2023")]
+[assembly: AssemblyCopyright("Copyright © Juchia 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,6 +33,6 @@ using MemoQ.Addins.Common.Framework;
 //
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
-[assembly: AssemblyInformationalVersion("1.0.0")]
+[assembly: AssemblyVersion("1.2.0.0")]
+[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyInformationalVersion("1.2.0")]

@@ -5,14 +5,15 @@
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 		<AssemblyVersion>1.1.0</AssemblyVersion>
 		<FileVersion>1.1.0</FileVersion>
+		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Remove="Icon.bmp" />
+	  <None Remove="Icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="Icon.bmp" />
+	  <EmbeddedResource Include="Icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -32,34 +33,43 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Forms\OptionsFormPapago.cs">
+	  <Compile Update="Forms\FormCustomDisplayName.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\OptionsFormOpenai.cs">
+	  <Compile Update="Forms\FormTranslateCache.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\OptionsFormXunfei.cs">
+	  <Compile Update="Forms\FormCustomLimit.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\OptionsFormYoudao.cs">
+	  <Compile Update="Forms\FormPapago.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\OptionsFormNiutrans.cs">
+	  <Compile Update="Forms\FormOpenai.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\OptionsFormCaiyun.cs">
+	  <Compile Update="Forms\FormXunfei.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\OptionsFormHuoshan.cs">
+	  <Compile Update="Forms\FormYoudao.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\OptionsFormTencent.cs">
+	  <Compile Update="Forms\FormNiutrans.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\OptionsFormAliyun.cs">
+	  <Compile Update="Forms\FormCaiyun.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\OptionsFormBaidu.cs">
+	  <Compile Update="Forms\FormHuoshan.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Forms\FormTencent.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Forms\FormAliyun.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Forms\FormBaidu.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
 	</ItemGroup>

@@ -39,17 +39,25 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.checkBoxNormalizeWhitespace = new System.Windows.Forms.CheckBox();
             this.checkBoxTagsToEnd = new System.Windows.Forms.CheckBox();
+            this.checkBoxCustomRequestLimit = new System.Windows.Forms.CheckBox();
+            this.linkLabelCustomRequestLimit = new System.Windows.Forms.LinkLabel();
+            this.linkLabelCustomDisplayName = new System.Windows.Forms.LinkLabel();
+            this.checkBoxCustomDisplayName = new System.Windows.Forms.CheckBox();
+            this.buttonHelp = new System.Windows.Forms.Button();
+            this.linkLabelTranslateCache = new System.Windows.Forms.LinkLabel();
+            this.linkLabelStatsAndLog = new System.Windows.Forms.LinkLabel();
+            this.checkBoxStatsAndLog = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(389, 170);
+            this.buttonOK.Location = new System.Drawing.Point(288, 270);
             this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 27);
-            this.buttonOK.TabIndex = 7;
+            this.buttonOK.TabIndex = 14;
             this.buttonOK.Text = "&OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             // 
@@ -57,11 +65,11 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(495, 170);
+            this.buttonCancel.Location = new System.Drawing.Point(395, 270);
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 27);
-            this.buttonCancel.TabIndex = 8;
+            this.buttonCancel.TabIndex = 15;
             this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -107,13 +115,11 @@
             // checkBoxTranslateCache
             // 
             this.checkBoxTranslateCache.AutoSize = true;
-            this.checkBoxTranslateCache.Location = new System.Drawing.Point(12, 174);
+            this.checkBoxTranslateCache.Location = new System.Drawing.Point(312, 216);
             this.checkBoxTranslateCache.Name = "checkBoxTranslateCache";
-            this.checkBoxTranslateCache.Size = new System.Drawing.Size(205, 19);
-            this.checkBoxTranslateCache.TabIndex = 6;
-            this.checkBoxTranslateCache.Text = "Enable Translate Cache";
+            this.checkBoxTranslateCache.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxTranslateCache.TabIndex = 12;
             this.checkBoxTranslateCache.UseVisualStyleBackColor = true;
-            this.checkBoxTranslateCache.Visible = false;
             // 
             // tabPage1
             // 
@@ -155,13 +161,108 @@
             this.checkBoxTagsToEnd.Text = "Insert Required Tags To End";
             this.checkBoxTagsToEnd.UseVisualStyleBackColor = true;
             // 
+            // checkBoxCustomRequestLimit
+            // 
+            this.checkBoxCustomRequestLimit.AutoSize = true;
+            this.checkBoxCustomRequestLimit.Location = new System.Drawing.Point(12, 171);
+            this.checkBoxCustomRequestLimit.Name = "checkBoxCustomRequestLimit";
+            this.checkBoxCustomRequestLimit.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxCustomRequestLimit.TabIndex = 6;
+            this.checkBoxCustomRequestLimit.UseVisualStyleBackColor = true;
+            // 
+            // linkLabelCustomRequestLimit
+            // 
+            this.linkLabelCustomRequestLimit.AutoSize = true;
+            this.linkLabelCustomRequestLimit.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.linkLabelCustomRequestLimit.Location = new System.Drawing.Point(33, 171);
+            this.linkLabelCustomRequestLimit.Name = "linkLabelCustomRequestLimit";
+            this.linkLabelCustomRequestLimit.Size = new System.Drawing.Size(223, 15);
+            this.linkLabelCustomRequestLimit.TabIndex = 7;
+            this.linkLabelCustomRequestLimit.TabStop = true;
+            this.linkLabelCustomRequestLimit.Text = "Enable Custom Request Limit";
+            this.linkLabelCustomRequestLimit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCustomRequestLimit_LinkClicked);
+            // 
+            // linkLabelCustomDisplayName
+            // 
+            this.linkLabelCustomDisplayName.AutoSize = true;
+            this.linkLabelCustomDisplayName.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.linkLabelCustomDisplayName.Location = new System.Drawing.Point(333, 171);
+            this.linkLabelCustomDisplayName.Name = "linkLabelCustomDisplayName";
+            this.linkLabelCustomDisplayName.Size = new System.Drawing.Size(215, 15);
+            this.linkLabelCustomDisplayName.TabIndex = 9;
+            this.linkLabelCustomDisplayName.TabStop = true;
+            this.linkLabelCustomDisplayName.Text = "Enable Custom Display Name";
+            this.linkLabelCustomDisplayName.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelCustomDisplayName_LinkClicked);
+            // 
+            // checkBoxCustomDisplayName
+            // 
+            this.checkBoxCustomDisplayName.AutoSize = true;
+            this.checkBoxCustomDisplayName.Location = new System.Drawing.Point(312, 171);
+            this.checkBoxCustomDisplayName.Name = "checkBoxCustomDisplayName";
+            this.checkBoxCustomDisplayName.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxCustomDisplayName.TabIndex = 8;
+            this.checkBoxCustomDisplayName.UseVisualStyleBackColor = true;
+            // 
+            // buttonHelp
+            // 
+            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonHelp.Location = new System.Drawing.Point(502, 270);
+            this.buttonHelp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonHelp.Name = "buttonHelp";
+            this.buttonHelp.Size = new System.Drawing.Size(100, 27);
+            this.buttonHelp.TabIndex = 16;
+            this.buttonHelp.Text = "&Help";
+            this.buttonHelp.UseVisualStyleBackColor = true;
+            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            // 
+            // linkLabelTranslateCache
+            // 
+            this.linkLabelTranslateCache.AutoSize = true;
+            this.linkLabelTranslateCache.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.linkLabelTranslateCache.Location = new System.Drawing.Point(333, 216);
+            this.linkLabelTranslateCache.Name = "linkLabelTranslateCache";
+            this.linkLabelTranslateCache.Size = new System.Drawing.Size(183, 15);
+            this.linkLabelTranslateCache.TabIndex = 13;
+            this.linkLabelTranslateCache.TabStop = true;
+            this.linkLabelTranslateCache.Text = "Enable Translate Cache";
+            this.linkLabelTranslateCache.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelTranslateCache_LinkClicked);
+            // 
+            // linkLabelStatsAndLog
+            // 
+            this.linkLabelStatsAndLog.AutoSize = true;
+            this.linkLabelStatsAndLog.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.linkLabelStatsAndLog.Location = new System.Drawing.Point(33, 216);
+            this.linkLabelStatsAndLog.Name = "linkLabelStatsAndLog";
+            this.linkLabelStatsAndLog.Size = new System.Drawing.Size(167, 15);
+            this.linkLabelStatsAndLog.TabIndex = 11;
+            this.linkLabelStatsAndLog.TabStop = true;
+            this.linkLabelStatsAndLog.Text = "Enable Stats And Log";
+            this.linkLabelStatsAndLog.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelStatsAndLog_LinkClicked);
+            // 
+            // checkBoxStatsAndLog
+            // 
+            this.checkBoxStatsAndLog.AutoSize = true;
+            this.checkBoxStatsAndLog.Location = new System.Drawing.Point(12, 216);
+            this.checkBoxStatsAndLog.Name = "checkBoxStatsAndLog";
+            this.checkBoxStatsAndLog.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxStatsAndLog.TabIndex = 10;
+            this.checkBoxStatsAndLog.UseVisualStyleBackColor = true;
+            // 
             // MultiSupplierMTOptionsForm
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(609, 209);
+            this.ClientSize = new System.Drawing.Size(609, 313);
+            this.Controls.Add(this.linkLabelStatsAndLog);
+            this.Controls.Add(this.checkBoxStatsAndLog);
+            this.Controls.Add(this.linkLabelTranslateCache);
+            this.Controls.Add(this.buttonHelp);
+            this.Controls.Add(this.linkLabelCustomDisplayName);
+            this.Controls.Add(this.checkBoxCustomDisplayName);
+            this.Controls.Add(this.linkLabelCustomRequestLimit);
+            this.Controls.Add(this.checkBoxCustomRequestLimit);
             this.Controls.Add(this.checkBoxTagsToEnd);
             this.Controls.Add(this.checkBoxNormalizeWhitespace);
             this.Controls.Add(this.checkBoxTranslateCache);
@@ -178,6 +279,7 @@
             this.Name = "MultiSupplierMTOptionsForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Multi Supplier MT Plugin Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MultiSupplierMTOptionsForm_FormClosing);
             this.ResumeLayout(false);
@@ -197,5 +299,13 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.CheckBox checkBoxNormalizeWhitespace;
         private System.Windows.Forms.CheckBox checkBoxTagsToEnd;
+        private System.Windows.Forms.CheckBox checkBoxCustomRequestLimit;
+        private System.Windows.Forms.LinkLabel linkLabelCustomRequestLimit;
+        private System.Windows.Forms.LinkLabel linkLabelCustomDisplayName;
+        private System.Windows.Forms.CheckBox checkBoxCustomDisplayName;
+        private System.Windows.Forms.Button buttonHelp;
+        private System.Windows.Forms.LinkLabel linkLabelTranslateCache;
+        private System.Windows.Forms.LinkLabel linkLabelStatsAndLog;
+        private System.Windows.Forms.CheckBox checkBoxStatsAndLog;
     }
 }

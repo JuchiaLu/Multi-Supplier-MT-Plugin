@@ -2,5 +2,8 @@ MultiSupplierMTPlugin/bin/
 MultiSupplierMTPlugin/obj/
 TestClient/bin/
 TestClient/obj/
+DllGenerator/bin/
+DllGenerator/obj/
+packages/
 release/
 .vs

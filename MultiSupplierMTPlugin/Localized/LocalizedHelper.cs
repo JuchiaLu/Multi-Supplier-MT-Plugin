@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Reflection;
 using System.Resources;
 using System.Threading;
@@ -12,16 +13,34 @@ namespace MultiSupplierMTPlugin.Localized
 
         static LocalizedHelper()
         {
-            resourceManager = new ResourceManager("MultiSupplierMTPlugin.Languages.Lang", Assembly.GetExecutingAssembly());
-            
-            cultureInfo = Thread.CurrentThread.CurrentCulture;
+            string originalAssemblyName = "MultiSupplierMTPlugin";
+            string resourceName = $"{originalAssemblyName}.Languages.Lang";
 
+            string currentDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string originalAssemblyPath = Path.Combine(currentDirectory, $"{originalAssemblyName}.dll");
+
+            Assembly originalAssembly = null;
+            try
+            {
+                originalAssembly = Assembly.LoadFrom(originalAssemblyPath);
+            }
+            catch (FileNotFoundException)
+            {
+                originalAssembly = Assembly.GetExecutingAssembly();
+            }
+            resourceManager = new ResourceManager(resourceName, originalAssembly);
+
+
+            //resourceManager = new ResourceManager("MultiSupplierMTPlugin.Languages.Lang", Assembly.GetExecutingAssembly()); 
+
+            cultureInfo = Thread.CurrentThread.CurrentCulture;
             Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
         }
 
         public static CultureInfo cultureInfo { get; set; }
 
-        public static string G(ILocalizedKeyEnum key, params object[] slots)
+        public static string G(LocalizedKeyEnumBase key, params object[] slots)
         {
             var keyString = key.ToString();
 

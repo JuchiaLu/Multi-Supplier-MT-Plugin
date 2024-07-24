@@ -108,7 +108,7 @@ namespace MT_SDK
         {
             initializing = true;
 
-            var supportedLangs = new List<string>() { "zho-CN", "eng", "jpn", "kor", "fre", "spa", "rus", "ger", "ita", "xxx" };
+            var supportedLangs = new List<string>() { "zho-CN", "eng", "jpn", "kor", "fre", "spa", "rus", "ger", "ita", "ara", "xxx" };
 
             cbSourceLanguage.Items.Add("Select language");
             cbTargetLanguage.Items.Add("Select language");

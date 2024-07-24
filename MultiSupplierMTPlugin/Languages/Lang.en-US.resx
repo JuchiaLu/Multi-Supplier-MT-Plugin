@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="02b6a21c-4887-4356-86df-94f8771de461" xml:space="preserve">
+    <value>Open Log Dir</value>
+  </data>
   <data name="02dbdf25-02a9-4cd3-8a8e-d54290fa2fe6" xml:space="preserve">
     <value>Baidu</value>
   </data>
@@ -129,11 +132,20 @@
   <data name="099c2f58-da48-48b4-af32-91e172fc0709" xml:space="preserve">
     <value>Api Id</value>
   </data>
+  <data name="0c2743fc-8e3b-45b1-8ffa-0bd6f2971397" xml:space="preserve">
+    <value>Segment Limit</value>
+  </data>
+  <data name="0c339fcb-14b1-44a5-81b7-74c57492d7ac" xml:space="preserve">
+    <value>Retry Limit</value>
+  </data>
   <data name="0f95184c-1752-40f7-9786-d1ab711e781d" xml:space="preserve">
     <value>Cancel</value>
   </data>
   <data name="10a4fe53-0ce6-4943-8593-2f7c6bcca77a" xml:space="preserve">
     <value>Baidu (Need Config)</value>
+  </data>
+  <data name="117446d0-394d-4a30-ab9d-e60f378b3178" xml:space="preserve">
+    <value>Yandex (Built In)</value>
   </data>
   <data name="134a02b6-6c85-4425-981c-36f0dd5e121f" xml:space="preserve">
     <value>Access Key</value>
@@ -141,11 +153,32 @@
   <data name="167c4588-e75f-440e-8948-9baab3d30199" xml:space="preserve">
     <value>Microsoft (Built In)</value>
   </data>
+  <data name="16aba4ce-e67e-46c2-82f0-fd4edd64ca1a" xml:space="preserve">
+    <value>Load Provider Default</value>
+  </data>
   <data name="18adb34c-014b-44fb-b7a7-86e7f90572f7" xml:space="preserve">
     <value>Professional</value>
   </data>
+  <data name="1ad559b0-d204-4ba5-8571-a92f460e87be" xml:space="preserve">
+    <value>Request Count</value>
+  </data>
+  <data name="1d684418-58fa-4c85-b40a-1b4cf327c63e" xml:space="preserve">
+    <value>Lingvanex (Built In)</value>
+  </data>
+  <data name="22031b6b-eeb0-4599-b0d9-1e3641668875" xml:space="preserve">
+    <value>Custom Request Limit</value>
+  </data>
+  <data name="2522fd4f-4ec8-496c-bc2f-f8b1a706b8ec" xml:space="preserve">
+    <value>Cache Count</value>
+  </data>
   <data name="300fc67c-0b73-42e1-8e5f-6594aaf0ab8f" xml:space="preserve">
     <value>Base Url</value>
+  </data>
+  <data name="33399640-4007-4ca6-a89d-62e257fe1cd4" xml:space="preserve">
+    <value>Operation timed out in {0} ms.</value>
+  </data>
+  <data name="33beee65-d86f-4943-ab77-6b83d2a6e480" xml:space="preserve">
+    <value>Failed Timeout Ms</value>
   </data>
   <data name="362f169d-dc50-42d4-bb28-e54ced53ea5b" xml:space="preserve">
     <value>App Id</value>
@@ -189,11 +222,20 @@
   <data name="61ceadf9-9ab8-4158-9faa-c7068d6d893c" xml:space="preserve">
     <value>Key Secret</value>
   </data>
+  <data name="63604532-cd5c-4ef8-af3d-3540dc6e3acc" xml:space="preserve">
+    <value>Enable Stats And Log</value>
+  </data>
   <data name="65cfa610-5c9e-4fc0-acc9-e67e271adbcb" xml:space="preserve">
     <value>Youdao</value>
   </data>
+  <data name="68f20413-9b96-4f29-9f91-4465c3a246a9" xml:space="preserve">
+    <value>DeepL (Built In)</value>
+  </data>
   <data name="6961769b-5c4f-4166-ad37-ea1f3fa756b7" xml:space="preserve">
     <value>Secret Key</value>
+  </data>
+  <data name="6cbdf74a-8412-4c20-9d5b-f3eda4fc7f26" xml:space="preserve">
+    <value>Selected provider no supported batch translation!</value>
   </data>
   <data name="7259d737-eca2-4e08-8f05-7ca50bb2a056" xml:space="preserve">
     <value>Google (Built In)</value>
@@ -210,8 +252,14 @@
   <data name="7699f7c8-f881-4fc1-b3d6-26f6fb3886ad" xml:space="preserve">
     <value>Include Formatting And Tags With Html</value>
   </data>
+  <data name="77f1e8a2-a669-409c-b0a3-6de0a29ab36a" xml:space="preserve">
+    <value>Request failed, and all {0} segments in the request could not be translated.</value>
+  </data>
   <data name="81752443-6399-441a-9243-82563c012d8f" xml:space="preserve">
     <value>Aliyun</value>
+  </data>
+  <data name="849ae12e-3897-4247-afb0-e3419ec9bbd9" xml:space="preserve">
+    <value>Max Requests Per Window </value>
   </data>
   <data name="865a1c4e-4701-47d3-9b26-f88a76c8bc02" xml:space="preserve">
     <value>App Key</value>
@@ -225,11 +273,17 @@
   <data name="8793bde6-cdf1-4fca-a7db-2d42251c4097" xml:space="preserve">
     <value>Temperature</value>
   </data>
+  <data name="8aeecb5e-36f9-4546-b516-a5a620c1e412" xml:space="preserve">
+    <value>It cannot be restored after clearing</value>
+  </data>
   <data name="8b08223d-ff3a-4618-8f53-70d3abfe899e" xml:space="preserve">
     <value>Prompt</value>
   </data>
   <data name="8b613cee-28a1-47b1-905e-4cc5a358f01f" xml:space="preserve">
     <value>OpenAI GPT (Need Config)</value>
+  </data>
+  <data name="8b8b544f-d639-4054-b3de-366ea201fabd" xml:space="preserve">
+    <value>Help</value>
   </data>
   <data name="8bedbcea-d908-4fe6-ae86-03e25c0a558b" xml:space="preserve">
     <value>Youdao (Need Config)</value>
@@ -240,14 +294,23 @@
   <data name="8cd43629-c5ba-4cba-8949-2c7824e246df" xml:space="preserve">
     <value>Api Key</value>
   </data>
+  <data name="8d3c7ac2-b063-4de9-9d17-233d4a4f46ae" xml:space="preserve">
+    <value>Rate Limit</value>
+  </data>
   <data name="8e1fd442-84b4-4051-aa7e-2da7adef70c6" xml:space="preserve">
     <value>Type</value>
   </data>
   <data name="9141043a-d8df-4ca0-95aa-a941c7fcff03" xml:space="preserve">
     <value>Caiyun</value>
   </data>
+  <data name="9314b2e9-8bbb-43cb-96c9-205da152ee77" xml:space="preserve">
+    <value>Request Smoothness </value>
+  </data>
   <data name="98c68a7d-ea6a-4a0e-bb26-51ca50fb13d8" xml:space="preserve">
     <value>Checked Fail !</value>
+  </data>
+  <data name="98d13160-5171-43ee-9d99-606f9c349985" xml:space="preserve">
+    <value>Retry Waiting Ms</value>
   </data>
   <data name="98f52dda-407e-4558-bb5b-c5d1be9bae2a" xml:space="preserve">
     <value>Request Type</value>
@@ -257,6 +320,9 @@
   </data>
   <data name="9ce291a1-d735-4b7b-b8a6-0a4fe9f58d27" xml:space="preserve">
     <value>General</value>
+  </data>
+  <data name="9d5ea46e-76d8-4ef4-b0fd-b4494bbf9ac1" xml:space="preserve">
+    <value>Dir cteate or open fail</value>
   </data>
   <data name="a00b8e13-dd40-4133-8725-61c32750b034" xml:space="preserve">
     <value>Xunfei (Need Config)</value>
@@ -273,8 +339,17 @@
   <data name="ae384aee-4b30-4544-a587-c3669e8dddae" xml:space="preserve">
     <value>App Secret</value>
   </data>
+  <data name="b12804ea-fc85-4a47-a2ea-a19c1bb69474" xml:space="preserve">
+    <value>Max Requests Hold</value>
+  </data>
   <data name="b5661636-c435-49a7-81c6-cfd668a39e36" xml:space="preserve">
     <value>Key Id</value>
+  </data>
+  <data name="b725027c-9b93-40e8-b315-c4cf2771a7c2" xml:space="preserve">
+    <value>Clean?</value>
+  </data>
+  <data name="bac7187e-1367-4ffb-a8e9-439d30267790" xml:space="preserve">
+    <value>Enable Custom Display Name</value>
   </data>
   <data name="bebacba9-8a50-4039-a8a2-80b28772e8ca" xml:space="preserve">
     <value>Tencent (Need Config)</value>
@@ -285,11 +360,26 @@
   <data name="c2c08303-5d5d-4341-84cf-0b4c7eb61a7f" xml:space="preserve">
     <value>Normalize Whitespace Around Tags</value>
   </data>
+  <data name="c479e88b-6cf4-41ab-9bb8-20732c5335f2" xml:space="preserve">
+    <value>Exception Count</value>
+  </data>
+  <data name="c72a9c7b-dceb-4c54-b62c-64738f86033f" xml:space="preserve">
+    <value>Max Segments Per Request</value>
+  </data>
+  <data name="d1cb71bd-5def-4dae-99d1-697cfe21aaf7" xml:space="preserve">
+    <value>Window Size Ms </value>
+  </data>
   <data name="d4682b5e-a68b-49bb-9811-4d0138c0b50a" xml:space="preserve">
     <value>Huoshan</value>
   </data>
   <data name="d5b68680-860a-43b6-a34f-f9b06672361c" xml:space="preserve">
     <value>Service Provider</value>
+  </data>
+  <data name="e4886123-c46d-46ad-94c0-9c1dcfa63f99" xml:space="preserve">
+    <value>Translate Cache</value>
+  </data>
+  <data name="ea435a7b-1cb3-4c8f-a9bb-360641b2b9e3" xml:space="preserve">
+    <value>Stats And Log</value>
   </data>
   <data name="eb2b3011-77f5-498c-b3eb-15719ec439be" xml:space="preserve">
     <value>Plaintext</value>
@@ -300,6 +390,15 @@
   <data name="ed3b6ee6-f020-4f97-ae01-b5e3f139cd60" xml:space="preserve">
     <value>Include Formatting With Html</value>
   </data>
+  <data name="f2a12541-8aef-4ef2-8544-87762cb08c36" xml:space="preserve">
+    <value>Enable Custom Limit</value>
+  </data>
+  <data name="f32a702e-9295-4043-b926-79c3417f0452" xml:space="preserve">
+    <value>Reset Stats</value>
+  </data>
+  <data name="f3f35751-a53b-4933-b04d-9ae07a45ac48" xml:space="preserve">
+    <value>Custom Display Name</value>
+  </data>
   <data name="f5195f4d-e383-46cc-ae13-a2cb548b679e" xml:space="preserve">
     <value>Checked Succeess !</value>
   </data>
@@ -309,8 +408,23 @@
   <data name="f8289042-679e-4a55-aa7c-a0c00ee640a0" xml:space="preserve">
     <value>Model</value>
   </data>
+  <data name="f866ccd3-447c-47a4-aa1e-9a95b76bf22f" xml:space="preserve">
+    <value>Operation failed after {0} attempts.</value>
+  </data>
   <data name="f926c81f-7e8c-4d93-819a-90d67f61e8f9" xml:space="preserve">
     <value>Include Formatting With Xml</value>
+  </data>
+  <data name="f98f704f-cdab-4049-9236-065df3dbcb8b" xml:space="preserve">
+    <value>Display Name</value>
+  </data>
+  <data name="fafb4f94-42bd-44ad-95a4-f7e15e4bfee3" xml:space="preserve">
+    <value>Tags conversion failed in the translation.</value>
+  </data>
+  <data name="fbfb46fd-f5f3-41f9-ac20-8d182feeeec0" xml:space="preserve">
+    <value>Concurrency Limit</value>
+  </data>
+  <data name="fcc7de38-9e72-4994-b329-0314c318fd82" xml:space="preserve">
+    <value>Number Of Retries</value>
   </data>
   <data name="ff38c851-5663-4b7d-8c85-4bea0ce0b058" xml:space="preserve">
     <value>Api Secret</value>
