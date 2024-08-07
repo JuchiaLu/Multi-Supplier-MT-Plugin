@@ -123,8 +123,14 @@
   <data name="02dbdf25-02a9-4cd3-8a8e-d54290fa2fe6" xml:space="preserve">
     <value>Baidu</value>
   </data>
+  <data name="0409a99d-951f-4618-9666-cd1e772fb3d6" xml:space="preserve">
+    <value>Model</value>
+  </data>
   <data name="07a89e6b-7ae9-4dab-8c63-d78fc747ea82" xml:space="preserve">
     <value>OpenAI GPT</value>
+  </data>
+  <data name="08d053d9-5bd0-4f50-8c7c-4424cb8049f7" xml:space="preserve">
+    <value>X Api Key</value>
   </data>
   <data name="095b951d-6052-4a60-a235-7ef4c08a31ef" xml:space="preserve">
     <value>Include Formatting And Tags With Xml</value>
@@ -137,6 +143,9 @@
   </data>
   <data name="0c339fcb-14b1-44a5-81b7-74c57492d7ac" xml:space="preserve">
     <value>Retry Limit</value>
+  </data>
+  <data name="0e656e14-d80b-4689-95c4-4da86da4c12d" xml:space="preserve">
+    <value>Prompt</value>
   </data>
   <data name="0f95184c-1752-40f7-9786-d1ab711e781d" xml:space="preserve">
     <value>Cancel</value>
@@ -170,6 +179,9 @@
   </data>
   <data name="2522fd4f-4ec8-496c-bc2f-f8b1a706b8ec" xml:space="preserve">
     <value>Cache Count</value>
+  </data>
+  <data name="271a4997-518b-4a7d-bf97-0855dbb52a71" xml:space="preserve">
+    <value>Max Tokens</value>
   </data>
   <data name="300fc67c-0b73-42e1-8e5f-6594aaf0ab8f" xml:space="preserve">
     <value>Base Url</value>
@@ -215,6 +227,9 @@
   </data>
   <data name="4f5424da-0e9b-4248-9a34-68846494ba2a" xml:space="preserve">
     <value>Insert Required Tags To End</value>
+  </data>
+  <data name="56f24cac-0485-4ba6-8878-8bba686af48d" xml:space="preserve">
+    <value>Temperature</value>
   </data>
   <data name="585eb308-fa75-4952-8889-692e54dbf0bf" xml:space="preserve">
     <value>Check</value>
@@ -306,6 +321,9 @@
   <data name="9314b2e9-8bbb-43cb-96c9-205da152ee77" xml:space="preserve">
     <value>Request Smoothness </value>
   </data>
+  <data name="97290984-26b7-4fef-b351-1050e4fcf783" xml:space="preserve">
+    <value>Claude (Need Config)</value>
+  </data>
   <data name="98c68a7d-ea6a-4a0e-bb26-51ca50fb13d8" xml:space="preserve">
     <value>Checked Fail !</value>
   </data>
@@ -363,6 +381,9 @@
   <data name="c479e88b-6cf4-41ab-9bb8-20732c5335f2" xml:space="preserve">
     <value>Exception Count</value>
   </data>
+  <data name="c5596777-132f-432b-a010-6ffe5714adac" xml:space="preserve">
+    <value>Base Url</value>
+  </data>
   <data name="c72a9c7b-dceb-4c54-b62c-64738f86033f" xml:space="preserve">
     <value>Max Segments Per Request</value>
   </data>
@@ -377,6 +398,9 @@
   </data>
   <data name="e4886123-c46d-46ad-94c0-9c1dcfa63f99" xml:space="preserve">
     <value>Translate Cache</value>
+  </data>
+  <data name="e891f052-094c-4121-aa92-35b3b6488af7" xml:space="preserve">
+    <value>Claude</value>
   </data>
   <data name="ea435a7b-1cb3-4c8f-a9bb-360641b2b9e3" xml:space="preserve">
     <value>Stats And Log</value>
@@ -410,6 +434,9 @@
   </data>
   <data name="f866ccd3-447c-47a4-aa1e-9a95b76bf22f" xml:space="preserve">
     <value>Operation failed after {0} attempts.</value>
+  </data>
+  <data name="f8b04c4a-2ac4-4b85-a770-4a1ee483bd52" xml:space="preserve">
+    <value>Path</value>
   </data>
   <data name="f926c81f-7e8c-4d93-819a-90d67f61e8f9" xml:space="preserve">
     <value>Include Formatting With Xml</value>

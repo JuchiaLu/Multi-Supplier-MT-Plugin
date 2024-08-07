@@ -359,7 +359,7 @@ namespace MultiSupplierMTPlugin.Services
         {
             var url = options.GeneralSettings.OpenaiGeneralOptions.BaseURL + options.GeneralSettings.OpenaiGeneralOptions.Path; 
             var model = options.GeneralSettings.OpenaiGeneralOptions.Model;
-            var temperature = options.GeneralSettings.OpenaiGeneralOptions.temperature;
+            var temperature = options.GeneralSettings.OpenaiGeneralOptions.Temperature;
             var prompt = options.GeneralSettings.OpenaiGeneralOptions.Prompt;
 
             var apiKey = options.SecureSettings.OpenaiSecureOptions.ApiKey;
@@ -420,7 +420,7 @@ namespace MultiSupplierMTPlugin.Services
             tempOptions.GeneralSettings.OpenaiGeneralOptions.BaseURL = baseUrl;
             tempOptions.GeneralSettings.OpenaiGeneralOptions.Path = path;
             tempOptions.GeneralSettings.OpenaiGeneralOptions.Model = model;
-            tempOptions.GeneralSettings.OpenaiGeneralOptions.temperature = temperature;
+            tempOptions.GeneralSettings.OpenaiGeneralOptions.Temperature = temperature;
             tempOptions.GeneralSettings.OpenaiGeneralOptions.Prompt = prompt;
 
             tempOptions.SecureSettings.OpenaiSecureOptions.ApiKey = apiKey;

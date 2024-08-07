@@ -1,4 +1,6 @@
 ﻿
+using MultiSupplierMTPlugin.Forms;
+
 namespace MultiSupplierMTPlugin.Localized
 {
     // TODO：除了不可避免的动态值（时间日期、用户输入等）外，最好不要使用插值，这不利于理解且不利于批量翻译
@@ -100,6 +102,9 @@ namespace MultiSupplierMTPlugin.Localized
 
         [LocalizedKey("3c815cd6-9f40-41e9-aef4-36153af826ca", "Papago (Need Config)")] // Papago 翻译（需配置）
         public static readonly LocalizedKeyEnum Form_ComboBoxServiceProvider_Papago = new LocalizedKeyEnum(nameof(Form_ComboBoxServiceProvider_Papago));
+
+        [LocalizedKey("97290984-26b7-4fef-b351-1050e4fcf783", "Claude (Need Config)")] // Claude（需配置）
+        public static readonly LocalizedKeyEnum Form_ComboBoxServiceProvider_Claude = new LocalizedKeyEnum(nameof(Form_ComboBoxServiceProvider_Claude));
 
 
         [LocalizedKey("22031b6b-eeb0-4599-b0d9-1e3641668875", "Custom Request Limit")] // 自定义请求限制
@@ -342,5 +347,30 @@ namespace MultiSupplierMTPlugin.Localized
 
         [LocalizedKey("f66898c7-cc1c-4b2d-9a46-ce31c53dff2f", "Client Secret")] // Client Secret
         public static readonly LocalizedKeyEnum FormPapago_LabelClientSecret = new LocalizedKeyEnum(nameof(FormPapago_LabelClientSecret));
+
+
+        [LocalizedKey("e891f052-094c-4121-aa92-35b3b6488af7", "Claude")] // Claude
+        public static readonly LocalizedKeyEnum FormClaude = new LocalizedKeyEnum(nameof(FormClaude));
+
+        [LocalizedKey("c5596777-132f-432b-a010-6ffe5714adac", "Base Url")] // Base Url
+        public static readonly LocalizedKeyEnum FormClaude_LabelBaseUrl = new LocalizedKeyEnum(nameof(FormClaude_LabelBaseUrl));
+
+        [LocalizedKey("f8b04c4a-2ac4-4b85-a770-4a1ee483bd52", "Path")] // Path
+        public static readonly LocalizedKeyEnum FormClaude_LabelPath = new LocalizedKeyEnum(nameof(FormClaude_LabelPath));
+
+        [LocalizedKey("0409a99d-951f-4618-9666-cd1e772fb3d6", "Model")] // Model
+        public static readonly LocalizedKeyEnum FormClaude_LabelModel = new LocalizedKeyEnum(nameof(FormClaude_LabelModel));
+
+        [LocalizedKey("271a4997-518b-4a7d-bf97-0855dbb52a71", "Max Tokens")] // Max Tokens
+        public static readonly LocalizedKeyEnum FormClaude_LabelMaxTokens = new LocalizedKeyEnum(nameof(FormClaude_LabelMaxTokens));
+
+        [LocalizedKey("56f24cac-0485-4ba6-8878-8bba686af48d", "Temperature")] // Temperature
+        public static readonly LocalizedKeyEnum FormClaude_LabelTemperature = new LocalizedKeyEnum(nameof(FormClaude_LabelTemperature));
+
+        [LocalizedKey("08d053d9-5bd0-4f50-8c7c-4424cb8049f7", "X Api Key")] // X Api Key
+        public static readonly LocalizedKeyEnum FormClaude_LabelXApiKey = new LocalizedKeyEnum(nameof(FormClaude_LabelXApiKey));
+
+        [LocalizedKey("0e656e14-d80b-4689-95c4-4da86da4c12d", "Prompt")] // Prompt
+        public static readonly LocalizedKeyEnum FormClaude_LabelPrompt = new LocalizedKeyEnum(nameof(FormClaude_LabelPrompt));
     }
 }

@@ -10,9 +10,11 @@
 
 ![](https://raw.githubusercontent.com/JuchiaLu/Multi-Supplier-MT-Plugin/master/images/preview.png)
 
-多提供商 ✔
+---
 
+多提供商 ✔、多重安装 ✔、多语言界面 ✔
 
+---
 
 请求类型： 仅纯文本 、包括格式标记 、包括格式标记和标签 ✔
 
@@ -22,7 +24,7 @@
 
 译文标签旁边的空格归一化：针对包括标签的请求 ✔
 
-
+---
 
 批量翻译：多个句段只需发送一个请求 ✔
 
@@ -34,22 +36,25 @@
 
 失败重试：失败超时时间 、重试等待时间 、失败重试次数 ✔
 
+---
+
 翻译缓存：默认开启，缓存数据保存在内存中，重启 memoQ 失效 ✔
 
+其他：请求数以及请求异常数统计 ✔、异常日志 ✔、自定义显示名称 ✔
 
+---
 
-其他：自定义显示名称 ✔、请求数以及请求异常数统计 ✔、异常日志 ✔、多重安装 ✔、多语言界面 ✔
+<details>
+<summary>展开查看</summary>
+<pre>
+储存（人工）翻译结果：（Director.StoringTranslationSupported），（当在 memoQ 中确认某段翻译时，会将原文和译文发送给插件，插件可以用来自学习，或储存为翻译缓存），（已支持，暂时只用来储存为缓存）<br/>
+使用 “MT（机器翻译）” 来修正 “TM（翻译记忆）”：（Engine.SupportsFuzzyCorrection），（如果源句段有 TM 匹配，但并不完美，memoQ 将尝试通过将差异发送给 MT 进行翻译来改进建议），（已支持，暂时未用到）<br/>
+使用 “MetaData（元数据）” 来辅助 “MT（机器翻译）”：（ISessionWithMetadata 接口），（用户翻译项目设置的元信息，比如 PorjectID、Client、Domain、Subject 等，可用于辅助翻译，memoQ 9.14 版本开始提供），（已支持，暂时未用到）<br/>
+使用 “TM（翻译记忆）” 来辅助 “MT（机器翻译）”：（Director.SupportFuzzyForwarding），（除了要翻译的源句段之外，memoQ 还会将最佳可用 TM 匹配的源文本和目标文本发送给 MT，memoQ 10.0 版本开始提供），（已支持，暂时未用到）<br/>
+</pre>
+</details>
 
-
-
-储存（人工）翻译结果：（Director.StoringTranslationSupported），（当在 memoQ 中确认某段翻译时，会将原文和译文发送给插件，插件可以用来自学习，或储存为翻译缓存），（已支持，暂时只用来储存为缓存）✔
-
-使用 “MT（机器翻译）” 来修正 “TM（翻译记忆）”：（Engine.SupportsFuzzyCorrection），（如果源句段有 TM 匹配，但并不完美，memoQ 将尝试通过将差异发送给 MT 进行翻译来改进建议），（已支持，暂时未用到）✔
-
-使用 “Metadata（元数据）” 来辅助 “MT（机器翻译）”：（ISessionWithMetadata 接口），（用户翻译项目设置的元信息，比如 PorjectID、Client、Domain、Subject 等，可用于辅助翻译，memoQ 9.14 版本开始提供），（已支持，暂时未用到）✔
-
-使用 “TM（翻译记忆）” 来辅助 “MT（机器翻译）”：（Director.SupportFuzzyForwarding），（除了要翻译的源句段之外，memoQ 还会将最佳可用 TM 匹配的源文本和目标文本发送给 MT，memoQ 10.0 版本开始提供），（已支持，暂时未用到）✔
-
+---
 ### 如何安装翻译插件
 
 ![](https://raw.githubusercontent.com/JuchiaLu/Multi-Supplier-MT-Plugin/master/images/installed.png)
@@ -64,7 +69,7 @@
 
 ### 如何进行多重安装
 
-![](https://raw.githubusercontent.com/JuchiaLu/Multi-Supplier-MT-Plugin/master/images/multi%20install.png)
+![](https://raw.githubusercontent.com/JuchiaLu/Multi-Supplier-MT-Plugin/master/images/multi%20install%202.png)
 
 使用 Release 中的 `Dll Generator.exe` 生成所需数量的 dll 文件，将其一同和 `MultiSupplierMTPlugin.dll`  放入到插件目录下。
 
@@ -78,7 +83,33 @@
 
 ![](https://raw.githubusercontent.com/JuchiaLu/Multi-Supplier-MT-Plugin/master/images/connect%20to%20OneAPI.png)
 
-插件目前只对接了 Open AI 的大语言模型接口，但你可以使用 `OpenAI GPT` 配置界面连接到任何兼容 Open AI 接口的 “聚合大语言模型接口程序（比如 [One API](https://github.com/songquanpeng/one-api) 等）” ，这样你便可以使用国内外绝大多数提供商的大语言模型，以及本地大语言模型。
+插件目前只对接了几个大语言模型接口，但你可以使用 `OpenAI GPT` 配置界面连接到任何兼容 Open AI 接口的 “聚合大语言模型程序（比如 [One API](https://github.com/songquanpeng/one-api) 等）”或 “本地大语言模型程序（比如 [Ollama](https://github.com/ollama/ollama/blob/main/docs/api.md) 等）” ，这样你便可以使用国内外绝大多数提供商的大语言模型，以及本地大语言模型。
+
+### 已支持的服务提供商
+
+| 提供商                                                       | 免费额度                                             | QPS 限速                  | 批量翻译支持 | Xml 或 Html 支持 |
+| ------------------------------------------------------------ | ---------------------------------------------------- | ------------------------- | ------------ | ---------------- |
+| [阿里](https://www.aliyun.com/product/ai/base_alimt)         | 普通版：每月 100 万字符<br />专业版：每月 100 万字符 | 普通版：50<br/>专业版：50 | ✔            | ✔ (Html)         |
+| [腾讯](https://cloud.tencent.com/product/tmt)                | 每月 500 万字符                                      | 5                         | ✔            | ×                |
+| [百度](https://fanyi-api.baidu.com/product/11)               | 标准版：每月 5 万字符<br/>高级版：每月 100 万字符    | 标准版：1<br />高级版：10 | ?            | ×                |
+| [火山](https://translate.volcengine.com/api)                 | 每月 200 万字符                                      | 10                        | ✔            | ×                |
+| [小牛](https://niutrans.com/dev-page)                        | 每日 20 万字符                                       | 50                        | ×            | ✔  (Xml)         |
+| [有道](https://fanyi.youdao.com/openapi/)                    | 新用户赠送 50 元体验金                               | 50                        | ✔            | ×                |
+| [讯飞](https://www.xfyun.cn/services/xftrans)                | 新用户赠送 200 万字符（90 天内有效）                 | 不详                      | ×            | ✔ (Xml)          |
+| [彩云](https://open.caiyunapp.com/%E4%BA%94%E5%88%86%E9%92%9F%E5%AD%A6%E4%BC%9A%E5%BD%A9%E4%BA%91%E5%B0%8F%E8%AF%91_API) | 新用户赠送 100 万字符（30 天内有效）                 | 10                        | ✔            | ×                |
+|                                                              |                                                      |                           |              |                  |
+| [Papago](https://guide.ncloud-docs.com/docs/en/papagotranslation-api) | 每天 1 万字符                                        | 不详                      | ×            | x                |
+|                                                              |                                                      |                           |              |                  |
+| [OpenAI GPT](https://platform.openai.com/docs/overview)      | 无                                                   | 由用户等级决定            | ×            | ✔ (Xml 或 Html)  |
+| [Anthropic Claude](https://docs.anthropic.com/en/docs/welcome) | 无                                                   | 由用户等级决定            | ×            | ✔ (Xml 或 Html)  |
+|                                                              |                                                      |                           |              |                  |
+| 微软（内置）                                                 | 且用且珍惜                                           | 不详                      | ✔            | ×                |
+| 谷歌（内置）                                                 | 且用且珍惜                                           | 不详                      | ×            | ✔ (Xml 或 Html)  |
+| DeepL（内置）                                                | 且用且珍惜                                           | 不详                      | ×            | ✔(Xml 或 Html)   |
+| Yandex（内置）                                               | 且用且珍惜                                           | 不详                      | ×            | ✔(Xml 或 Html)   |
+| Lingvanex（内置）                                            | 且用且珍惜                                           | 不详                      | ×            | ✔(Xml 或 Html)   |
+
+注：百度翻译声称支持批量翻译，但他使用换行符来区分各个独立句段，但 memoQ  提供的一个句段是可能包含换行符的，所以把它当作不支持批量翻译处理。
 
 ### 标签请求类型解释
 
@@ -95,31 +126,6 @@
 大多数的机器翻译引擎支持将格式标记保留不翻译，并放置到正确的位置，但标签就不一定，它们可能错误的将标签当作普通文本进行翻译，或没有把标签保留在译文中。格式标记或标签有两种形式表示，一是使用 Xml 标准表示，二是使用 Html 标准表示，各家支持的情况请看下文表格中的“支持 Xml 或 Html”。
 
 想要直观的查看标签，可以使用插件提供的 `测试翻译（内建）` 服务提供商，从它的翻译结果中的 text 字段内容能看到未经转换的原始形式的标签表示。
-
-### 翻译服务提供商接入
-
-| 提供商                                                       | 免费额度                                             | QPS 限速                  | 批量翻译支持 | Xml 或 Html 支持 |
-| ------------------------------------------------------------ | ---------------------------------------------------- | ------------------------- | ------------ | ---------------- |
-| [阿里](https://www.aliyun.com/product/ai/base_alimt)         | 普通版：每月 100 万字符<br />专业版：每月 100 万字符 | 普通版：50<br/>专业版：50 | ✔            | ✔ (Html)         |
-| [腾讯](https://cloud.tencent.com/product/tmt)                | 每月 500 万字符                                      | 5                         | ✔            | ×                |
-| [百度](https://fanyi-api.baidu.com/product/11)               | 标准版：每月 5 万字符<br/>高级版：每月 100 万字符    | 标准版：1<br />高级版：10 | ?            | ×                |
-| [火山](https://translate.volcengine.com/api)                 | 每月 200 万字符                                      | 10                        | ✔            | ×                |
-| [小牛](https://niutrans.com/dev-page)                        | 每日 20 万字符                                       | 50                        | ×            | ✔  (Xml)         |
-| [有道](https://fanyi.youdao.com/openapi/)                    | 新用户赠送 50 元体验金                               | 50                        | ✔            | ×                |
-| [讯飞](https://www.xfyun.cn/services/xftrans)                | 新用户赠送 200 万字符（90 天内有效）                 | 不详                      | ×            | ✔ (Xml)          |
-| [彩云](https://open.caiyunapp.com/%E4%BA%94%E5%88%86%E9%92%9F%E5%AD%A6%E4%BC%9A%E5%BD%A9%E4%BA%91%E5%B0%8F%E8%AF%91_API) | 新用户赠送 100 万字符（30 天内有效）                 | 10                        | ✔            | ×                |
-|                                                              |                                                      |                           |              |                  |
-| [Papago](https://guide.ncloud-docs.com/docs/en/papagotranslation-api) | 每天 1 万字符                                        | 不详                      | ×            | x                |
-|                                                              |                                                      |                           |              |                  |
-| [OpenAI GPT](https://platform.openai.com/docs/overview)      | 无                                                   | 由用户等级决定            | ×            | ✔ (Xml 或 Html)  |
-|                                                              |                                                      |                           |              |                  |
-| 微软（内置）                                                 | 且用且珍惜                                           | 不详                      | ✔            | ×                |
-| 谷歌（内置）                                                 | 且用且珍惜                                           | 不详                      | ×            | ✔ (Xml 或 Html)  |
-| DeepL（内置）                                                | 且用且珍惜                                           | 不详                      | ×            | ✔(Xml 或 Html)   |
-| Yandex（内置）                                               | 且用且珍惜                                           | 不详                      | ×            | ✔(Xml 或 Html)   |
-| Lingvanex（内置）                                            | 且用且珍惜                                           | 不详                      | ×            | ✔(Xml 或 Html)   |
-
-注：百度翻译声称支持批量翻译，但他使用换行符来区分各个独立句段，但 memoQ  提供的一个句段是可能包含换行符的，所以把它当作不支持批量翻译处理。
 
 ### 自定义请求限制设置
 

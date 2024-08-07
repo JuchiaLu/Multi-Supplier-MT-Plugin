@@ -9,7 +9,7 @@ using LLK = MultiSupplierMTPlugin.Localized.LocalizedKeyEnum;
 
 namespace MultiSupplierMTPlugin.Forms
 {
-    public partial class FormOpenai : Form
+    public partial class FormClaude : Form
     {
         private MultiSupplierMTOptions options;
 
@@ -17,7 +17,7 @@ namespace MultiSupplierMTPlugin.Forms
 
         private bool checkSuccess = false;
         
-        public FormOpenai(MultiSupplierMTOptions options, IEnvironment environment)
+        public FormClaude(MultiSupplierMTOptions options, IEnvironment environment)
         {
             InitializeComponent();
 
@@ -38,15 +38,17 @@ namespace MultiSupplierMTPlugin.Forms
 
         private void localized()
         {
-            Text = LLH.G(LLK.FormOpenai);
+            Text = LLH.G(LLK.FormClaude);
 
-            labelBaseUrl.Text = LLH.G(LLK.FormOpenai_LabelBaseUrl);
-            labelPath.Text = LLH.G(LLK.FormOpenai_LabelPath);
-            labelModel.Text = LLH.G(LLK.FormOpenai_LabelModel);
-            labelTemperature.Text = LLH.G(LLK.FormOpenai_LabelTemperature);
-            labelApiKey.Text = LLH.G(LLK.FormOpenai_LabelApiKey);
-            labelOrganization.Text = LLH.G(LLK.FormOpenai_LabelOrganization);
-            labelPrompt.Text = LLH.G(LLK.FormOpenai_LabelPrompt);
+            labelBaseUrl.Text = LLH.G(LLK.FormClaude_LabelBaseUrl);
+            labelPath.Text = LLH.G(LLK.FormClaude_LabelPath);
+            labelModel.Text = LLH.G(LLK.FormClaude_LabelModel);
+            labelMaxTokens.Text = LLH.G(LLK.FormClaude_LabelMaxTokens);
+            labelTemperature.Text = LLH.G(LLK.FormClaude_LabelTemperature);
+
+            labelXApiKey.Text = LLH.G(LLK.FormClaude_LabelXApiKey);
+
+            labelPrompt.Text = LLH.G(LLK.FormClaude_LabelPrompt);
 
             linkLabelCheck.Text = LLH.G(LLK.Form_LinkLabelCheck);
 
@@ -57,32 +59,29 @@ namespace MultiSupplierMTPlugin.Forms
 
         private void loadOptions()
         {
-            textBoxBaseUrl.Text = options.GeneralSettings.OpenaiGeneralOptions.BaseURL;
-            textBoxPath.Text = options.GeneralSettings.OpenaiGeneralOptions.Path;
+            textBoxBaseUrl.Text = options.GeneralSettings.ClaudeGeneralOptions.BaseURL;
+            textBoxPath.Text = options.GeneralSettings.ClaudeGeneralOptions.Path;
             
-            var model = options.GeneralSettings.OpenaiGeneralOptions.Model;
+            var model = options.GeneralSettings.ClaudeGeneralOptions.Model;
             var models = new string[]
             {
-                "gpt-3.5-turbo",
-                "gpt-3.5-turbo-16k",
-                "gpt-4",
-                "gpt-4-32k",
-                "gpt-4-turbo",
-                "gpt-4-turbo-preview",
-                "gpt-4o",
-                "gpt-4o-mini",
+                "claude-3-opus-20240229",
+                "claude-3-sonnet-20240229",
+                "claude-3-haiku-20240307",
+                "claude-3-5-sonnet-20240620",
             };
             comboBoxModels.Items.AddRange(models);
             if (!models.Contains(model)) comboBoxModels.Items.Add(model);
             comboBoxModels.SelectedItem = model;
-            numericUpDownTemperature.Value = (decimal)options.GeneralSettings.OpenaiGeneralOptions.Temperature;
 
-            textBoxApiKey.Text = options.SecureSettings.OpenaiSecureOptions.ApiKey;
-            textBoxOrganization.Text = options.SecureSettings.OpenaiSecureOptions.Organization;
+            numericUpDownMaxTokens.Value = options.GeneralSettings.ClaudeGeneralOptions.MaxTokens;
+            numericUpDownTemperature.Value = (decimal)options.GeneralSettings.ClaudeGeneralOptions.Temperature;
 
-            textBoxPrompt.Text = options.GeneralSettings.OpenaiGeneralOptions.Prompt;
+            textBoxXApiKey.Text = options.SecureSettings.ClaudeSecureOptions.XApiKey;
 
-            buttonOK.Enabled = options.GeneralSettings.OpenaiGeneralOptions.Checked;
+            textBoxPrompt.Text = options.GeneralSettings.ClaudeGeneralOptions.Prompt;
+
+            buttonOK.Enabled = options.GeneralSettings.ClaudeGeneralOptions.Checked;
         }
 
         private void bindOptionsChangedEvent()
@@ -129,7 +128,7 @@ namespace MultiSupplierMTPlugin.Forms
             labelCheckResult.Text = "";
             buttonOK.Enabled = false;
 
-            checkSuccess = await Openai.Check(textBoxBaseUrl.Text, textBoxPath.Text, (string)comboBoxModels.Text, (double)numericUpDownTemperature.Value, textBoxApiKey.Text, textBoxOrganization.Text, textBoxPrompt.Text);
+            checkSuccess = await Claude.Check(textBoxBaseUrl.Text, textBoxPath.Text, (string)comboBoxModels.Text, (int)numericUpDownMaxTokens.Value, (double)numericUpDownTemperature.Value, textBoxXApiKey.Text, textBoxPrompt.Text);
 
             if (!IsDisposed) 
             {
@@ -151,7 +150,7 @@ namespace MultiSupplierMTPlugin.Forms
         {
             try
             {
-                Process.Start("https://platform.openai.com/docs/overview");
+                Process.Start("https://docs.anthropic.com/en/docs/welcome");
             }
             catch
             {
@@ -163,18 +162,19 @@ namespace MultiSupplierMTPlugin.Forms
         {
             if (DialogResult == DialogResult.OK && checkSuccess)
             {
-                options.GeneralSettings.OpenaiGeneralOptions.BaseURL = textBoxBaseUrl.Text;
-                options.GeneralSettings.OpenaiGeneralOptions.Path = textBoxPath.Text;
+                options.GeneralSettings.ClaudeGeneralOptions.BaseURL = textBoxBaseUrl.Text;
+                options.GeneralSettings.ClaudeGeneralOptions.Path = textBoxPath.Text;
 
-                options.GeneralSettings.OpenaiGeneralOptions.Model = (string)comboBoxModels.Text;
-                options.GeneralSettings.OpenaiGeneralOptions.Temperature = (double)numericUpDownTemperature.Value;
+                options.GeneralSettings.ClaudeGeneralOptions.Model = (string)comboBoxModels.Text;
+                
+                options.GeneralSettings.ClaudeGeneralOptions.MaxTokens = (int)numericUpDownMaxTokens.Value;
+                options.GeneralSettings.ClaudeGeneralOptions.Temperature = (double)numericUpDownTemperature.Value;
 
-                options.SecureSettings.OpenaiSecureOptions.ApiKey = textBoxApiKey.Text;
-                options.SecureSettings.OpenaiSecureOptions.Organization = textBoxOrganization.Text;
+                options.SecureSettings.ClaudeSecureOptions.XApiKey = textBoxXApiKey.Text;
 
-                options.GeneralSettings.OpenaiGeneralOptions.Prompt = textBoxPrompt.Text;
+                options.GeneralSettings.ClaudeGeneralOptions.Prompt = textBoxPrompt.Text;
 
-                options.GeneralSettings.OpenaiGeneralOptions.Checked = true;
+                options.GeneralSettings.ClaudeGeneralOptions.Checked = true;
             }
         }
     }

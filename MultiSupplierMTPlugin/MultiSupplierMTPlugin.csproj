@@ -36,6 +36,9 @@
 	  <Compile Update="Forms\FormCustomDisplayName.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
+	  <Compile Update="Forms\FormClaude.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
 	  <Compile Update="Forms\FormTranslateCache.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
