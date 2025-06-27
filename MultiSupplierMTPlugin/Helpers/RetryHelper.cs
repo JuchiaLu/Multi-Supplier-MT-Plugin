@@ -3,72 +3,73 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using LLH = MultiSupplierMTPlugin.Localized.LocalizedHelper;
-using LLK = MultiSupplierMTPlugin.Localized.LocalizedKeyEnum;
+using LLK = MultiSupplierMTPlugin.Localized.LocalizedKeyCommon;
 
 namespace MultiSupplierMTPlugin.Helpers
 {
-    public class RetryHelper
+    class RetryHelper
     {
-        private readonly int failedTimeoutMs;
-        private readonly int retryWaitingMs;
-        private readonly int numberOfRetries;
+        private readonly int _failedTimeoutMs;
+        private readonly int _retryWaitingMs;
+        private readonly int _numberOfRetries;
 
         public RetryHelper(int failedTimeoutMs, int retryWaitingMs, int numberOfRetries)
         {
-            this.failedTimeoutMs = failedTimeoutMs;
-            this.retryWaitingMs = retryWaitingMs;
-            this.numberOfRetries = numberOfRetries;
+            this._failedTimeoutMs = Math.Max(failedTimeoutMs, 0);
+            this._retryWaitingMs = Math.Max(retryWaitingMs, 0);
+            this._numberOfRetries = Math.Max(numberOfRetries, 0);
         }
 
         public async Task<T> ExecWithRetryAsync<T>(Func<CancellationToken, Task<T>> action)
         {
-            List<Exception> exceptions = new List<Exception>();
-            var cts = new CancellationTokenSource();
+            var exceptions = new List<Exception>();
 
-            try
+            for (int attempt = 0; attempt <= _numberOfRetries; attempt++)
             {
-                for (int attempt = 0; attempt <= numberOfRetries; attempt++)
+                CancellationTokenSource cts = new CancellationTokenSource();
+                try
                 {
-                    try
+                    if (_failedTimeoutMs <= 0)
                     {
-                        if (failedTimeoutMs <= 0)
-                        {
-                            return await action(cts.Token);
-                        }
-                        else
-                        {
-                            var mainTask = action(cts.Token);
-                            var timeoutTask = Task.Delay(failedTimeoutMs, cts.Token);
-
-                            var completedTask = await Task.WhenAny(mainTask, timeoutTask);
-
-                            if (completedTask == mainTask)
-                            {
-                                return await mainTask;
-                            }
-
-                            throw new TimeoutException(LLH.G(LLK.RetryHelper_Exception_TimeoutMsg, failedTimeoutMs));
-                        }
+                        return await action(cts.Token);
                     }
-                    catch (Exception ex)
+
+                    var mainTask = action(cts.Token);
+                    var timeoutTask = Task.Delay(_failedTimeoutMs, cts.Token);
+
+                    var completedTask = await Task.WhenAny(mainTask, timeoutTask);
+
+                    if (completedTask == mainTask)
                     {
-                        exceptions.Add(ex);
+                        return await mainTask; // 正常完成
+                    }
 
-                        cts.Cancel();
-                        cts.Dispose();
+                    // 超时处理：取消任务并等待其响应
+                    cts.Cancel();
+                    try { await mainTask; } catch { /* 忽略取消或异常 */ }
 
-                        cts = new CancellationTokenSource();
+                    throw new TimeoutException(LLH.G(LLK.RetryHelper_Exception_TimeoutMsg, _failedTimeoutMs));
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
 
-                        await Task.Delay(retryWaitingMs);
+                    if (attempt < _numberOfRetries)
+                    {
+                        await Task.Delay(_retryWaitingMs);
                     }
                 }
-                throw new AggregateException(LLH.G(LLK.RetryHelper_Exception_AllAttemptFailMsg, numberOfRetries+1), exceptions);
+                finally
+                {
+                    cts.Cancel();
+                    cts.Dispose();
+                }
             }
-            finally
-            {
-                cts.Cancel();
-                cts.Dispose();
-            }
+
+            throw new AggregateException(
+                LLH.G(LLK.RetryHelper_Exception_AllAttemptFailMsg, _numberOfRetries + 1),
+                exceptions
+            );
         }
 
         public Task ExecWithRetryAsync(Func<CancellationToken, Task> action)

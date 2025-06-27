@@ -2,11 +2,46 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="Forms\FormStatsAndLog.cs">
+    <Compile Update="Forms\CustomDisplayName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\CustomLimit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\FreeOpenSourceTip.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\OpenAICompatibleProvider.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ProvidersManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\StatsAndLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\TranslateCache.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="MultiSupplierMTOptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ProvidersCommon\Forms\CommonBottomControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="ProvidersCommon\Forms\LLM\OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Providers\Yandex\OptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Languages\Lang.en-US.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Languages\Lang.zh-CN.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

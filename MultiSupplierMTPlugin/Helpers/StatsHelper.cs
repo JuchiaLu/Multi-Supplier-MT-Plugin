@@ -1,36 +1,99 @@
-﻿using System.Threading;
+﻿using LiteDB;
+using System;
+using System.Threading;
 
 namespace MultiSupplierMTPlugin.Helpers
 {
-    public class StatsHelper
+    class StatsHelper
     {
-        // 请求数应该不会超出 long, 所以暂不考虑 long 溢出问题。
-        private static long requestTotal;
+        private static ILiteCollection<RequestStatsEntry> _collection;
+        private static bool _useFallback;
+        private static bool _initialized;
+        private static readonly object _lock = new object();
+
+        private static long requestSuccess;
         private static long requestFailed;
 
-        public static void IncrementRequestTotal()
+        public static void Init(LiteDatabase db, bool useFallback = false)
         {
-            Interlocked.Increment(ref requestTotal);
+            if (_initialized) return;
+
+            lock (_lock)
+            {
+                if (_initialized) return;
+
+                if (useFallback)
+                {
+                    _useFallback = true;
+                    _initialized = true;
+                    return;
+                }
+
+                try
+                {
+                    _collection = db.GetCollection<RequestStatsEntry>("request_stats");
+                    _collection.EnsureIndex(x => x.Id, true);
+
+                    var existing = _collection.FindById("global");
+                    if (existing != null)
+                    {
+                        requestSuccess = existing.RequestSuccess;
+                        requestFailed = existing.RequestFailed;
+                    }
+                    else
+                    {
+                        _collection.Upsert(new RequestStatsEntry
+                        {
+                            Id = "global",
+                            RequestSuccess = 0,
+                            RequestFailed = 0,
+                        });
+                    }
+                }
+                catch (Exception ex)
+                {                    
+                    _useFallback = true;
+                    LoggingHelper.Warn("Database Stats initialization failed. Use the memory Stats: " + ex.Message);
+                }
+
+                _initialized = true;
+            }
         }
 
-        public static void IncrementRequestTotal(long value)
+        public static void IncrementRequestSuccess()
         {
-            Interlocked.Add(ref requestTotal, value);
+            Interlocked.Increment(ref requestSuccess);
+            PersistIfNeeded();
+        }
+
+        public static void IncrementRequestSuccess(long value)
+        {
+            Interlocked.Add(ref requestSuccess, value);
+            PersistIfNeeded();
         }
 
         public static void IncrementRequestFailed()
         {
             Interlocked.Increment(ref requestFailed);
+            PersistIfNeeded();
         }
 
         public static void IncrementRequestFailed(long value)
         {
             Interlocked.Add(ref requestFailed, value);
+            PersistIfNeeded();
         }
 
-        public static long GetRequestTotal()
+        public static void Reset()
         {
-            return Interlocked.Read(ref requestTotal);
+            Interlocked.Exchange(ref requestSuccess, 0);
+            Interlocked.Exchange(ref requestFailed, 0);
+            PersistIfNeeded();
+        }
+
+        public static long GetRequestSuccess()
+        {
+            return Interlocked.Read(ref requestSuccess);
         }
 
         public static long GetRequestFailed()
@@ -38,25 +101,28 @@ namespace MultiSupplierMTPlugin.Helpers
             return Interlocked.Read(ref requestFailed);
         }
 
-        public static double GetFailureRate()
+        private static void PersistIfNeeded()
         {
-            long total = GetRequestTotal();
-            if (total == 0) return 0;
-            return (double)GetRequestFailed() / total;
+            if (_useFallback) return;
+
+            var entry = new RequestStatsEntry
+            {
+                Id = "global",
+                RequestSuccess = Interlocked.Read(ref requestSuccess),
+                RequestFailed = Interlocked.Read(ref requestFailed),
+            };
+
+            _collection.Upsert(entry);
         }
 
-        public static (long Total, long Failed, double FailureRate) GetStats()
+        private class RequestStatsEntry
         {
-            long total = GetRequestTotal();
-            long failed = GetRequestFailed();
-            double failureRate = total == 0 ? 0 : (double)failed / total;
-            return (total, failed, failureRate);
-        }
+            [BsonId]
+            public string Id { get; set; } = "global"; // 单条统计，ID 固定
 
-        public static void Reset()
-        {
-            Interlocked.Exchange(ref requestTotal, 0);
-            Interlocked.Exchange(ref requestFailed, 0);
+            public long RequestSuccess { get; set; }
+
+            public long RequestFailed { get; set; }
         }
     }
 }

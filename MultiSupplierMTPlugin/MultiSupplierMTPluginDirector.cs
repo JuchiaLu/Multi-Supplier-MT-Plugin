@@ -2,30 +2,26 @@
 using MemoQ.MTInterfaces;
 using MultiSupplierMTPlugin.Helpers;
 using MultiSupplierMTPlugin.Localized;
-using System;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
-using LLH = MultiSupplierMTPlugin.Localized.LocalizedHelper;
-using LLK = MultiSupplierMTPlugin.Localized.LocalizedKeyEnum;
 
 namespace MultiSupplierMTPlugin
 {
     public class MultiSupplierMTPluginDirector : PluginDirectorBase, IModule
     {
-        private readonly string dllFileName;
+        private readonly string _dllFileName;
 
-        private IEnvironment environment;
+        private IEnvironment _environment;
 
+        private MultiSupplierMTOptions _mtOptions;
 
-        private MultiSupplierMTOptions options;
-
-        private LoggingHelper loggingHelper;
+        private static readonly object _lock = new object();
 
         public MultiSupplierMTPluginDirector()
         {
-            dllFileName = Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location);
+            _dllFileName = Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().Location);
         }
 
         #region IModule Members
@@ -38,15 +34,12 @@ namespace MultiSupplierMTPlugin
         public void Initialize(IModuleEnvironment env)
         {
             // 从 memoQ 8.2 开始，机器翻译插件不再管理（存储和加载）自己的设置，但显然接口更新没跟上，
-            // 这里居然获取不到 PluginSettings，所以我们只能在 CreateEngine() 时初始化某些实例变量。
+            // 这里居然获取不到 PluginSettings，所以我们只能在 CreateEngine() 等能获取到配置的地方初始化。
         }
 
         public void Cleanup()
         {
-            if (loggingHelper != null)
-            {
-                loggingHelper.Dispose();
-            }
+            LoggingHelper.Dispose();
         }
 
         #endregion
@@ -75,56 +68,29 @@ namespace MultiSupplierMTPlugin
 
         public override string PluginID
         {
-            get
-            {
-                if (dllFileName.Equals("MultiSupplierMTPlugin"))
-                {
-                    return "MultiSupplier";// 兼容旧版本，防止已有配置文件失效
-                }
-                else
-                {
-                    return dllFileName;
-                }
-            }
+            get { return _dllFileName; }
         }
 
         public override string FriendlyName
         {
             get 
             {
-                if (options != null)
-                {
-                    if (options.GeneralSettings.EnableCustomDisplayName)
-                    {
-                        return $"{options.GeneralSettings.CustomDisplayName}\n({dllFileName})";
-                    }
-                    else
-                    {
-                        string rovider = options.GeneralSettings.CurrentServiceProvider;
+                if (_mtOptions == null)
+                    return $"Multi Supplier MT Plugin\r\n({_dllFileName})";
 
-                        if (LocalizedKeyEnumBase.TryFromName<LLK>("Form_ComboBoxServiceProvider_" + rovider, out var keyEnum))
-                        {
-                            return $"Multi Supplier - {LLH.G(keyEnum)}\n({dllFileName})";
-                        }
-                        else
-                        {
-                            return $"Multi Supplier - {rovider}\n({dllFileName})";
-                        }
-                    }
-                }
-                else
-                {
-                    return $"Multi Supplier MT Plugin\n({dllFileName})";
-                }
+                if (_mtOptions.GeneralSettings.EnableCustomDisplayName)
+                    return $"{_mtOptions.GeneralSettings.CustomDisplayName}\r\n({_dllFileName})";
+
+                string provider = _mtOptions.GeneralSettings.CurrentServiceProvider;
+                var service = ServiceHelper.GetServiceOrFallback(provider);
+                var localizedName = ServiceLocalizedNameHelper.GetWithSuffix(service.UniqueName, service.IsLLM, service.IsBuiltIn);
+                return $"Multi Supplier - {localizedName}\r\n({_dllFileName})";
             }
         }
 
         public override string CopyrightText
         {
-            get 
-            {
-                return $"{dllFileName}, Copyright (C) Juchia";
-            }
+            get  { return $"{_dllFileName}, Copyright (C) Juchia"; }
         }
 
         public override Image DisplayIcon
@@ -138,95 +104,119 @@ namespace MultiSupplierMTPlugin
 
         public override IEnvironment Environment
         {
-            set
-            {
-                this.environment = value;
-            }
+            set { this._environment = value; }
         }
 
         public override PluginSettings EditOptions(IWin32Window parentForm, PluginSettings settings)
         {
-            options = new MultiSupplierMTOptions(settings);
+            var mtOptions = GetOrInitializeOptions(settings);
 
-            using (var form = new MultiSupplierMTOptionsForm(options, environment))
+            using (var form = new MultiSupplierMTOptionsForm(mtOptions))
             {
                 if (form.ShowDialog(parentForm) == DialogResult.OK)
                 {
-                    environment.PluginAvailabilityChanged();
+                    mtOptions.GeneralSettings.RuningTimes += 1;
+                    _environment.PluginAvailabilityChanged();
                 }
             }
 
-            return options.GetSerializedSettings();
+            var version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            mtOptions.GeneralSettings.Version = version;
+            mtOptions.GeneralSettings.Version = version;
+
+            return mtOptions.GetSerializedSettings();
         }
 
         public override bool IsLanguagePairSupported(LanguagePairSupportedParams args)
         {
-            options = new MultiSupplierMTOptions(args.PluginSettings);
+            var mtOptions = GetOrInitializeOptions(args.PluginSettings);
 
-            return ServiceHelper.GetService(options.GeneralSettings.CurrentServiceProvider).IsLanguagePairSupported(args.SourceLangCode, args.TargetLangCode);
+            var provider  =  mtOptions.GeneralSettings.CurrentServiceProvider;
+            var service = ServiceHelper.GetServiceOrFallback(provider);
+
+            return service.IsLanguagePairSupported(args.SourceLangCode, args.TargetLangCode);
         }
 
         public override IEngine2 CreateEngine(CreateEngineParams args)
         {
-            options = new MultiSupplierMTOptions(args.PluginSettings);
+            var mtOptions = GetOrInitializeOptions(args.PluginSettings);
 
-            var mtService = ServiceHelper.GetService(options.GeneralSettings.CurrentServiceProvider);
-            
+            var provider = mtOptions.GeneralSettings.CurrentServiceProvider;
+            var service = ServiceHelper.GetServiceOrFallback(provider);
+
             LimitHelper limitHelper;
             RetryHelper retryHelper;
-            if (options.GeneralSettings.EnableCustomRequestLimit)
+            if (mtOptions.GeneralSettings.EnableCustomRequestLimit)
             {
                 limitHelper = new LimitHelper(
-                    options.GeneralSettings.MaxRequestsHold,
-                    options.GeneralSettings.MaxRequestsPerWindow,
-                    options.GeneralSettings.WindowSizeMs,
-                    options.GeneralSettings.RequestSmoothness
+                    mtOptions.GeneralSettings.MaxRequestsHold,
+                    mtOptions.GeneralSettings.MaxRequestsPerWindow,
+                    mtOptions.GeneralSettings.WindowSizeMs,
+                    mtOptions.GeneralSettings.RequestSmoothness
                     );
 
                 retryHelper = new RetryHelper(
-                    options.GeneralSettings.FailedTimeoutMs,
-                    options.GeneralSettings.RetryWaitingMs,
-                    options.GeneralSettings.NumberOfRetries
+                    mtOptions.GeneralSettings.FailedTimeoutMs,
+                    mtOptions.GeneralSettings.RetryWaitingMs,
+                    mtOptions.GeneralSettings.NumberOfRetries
                     );
             }
             else
             {
                 limitHelper = new LimitHelper(
-                    mtService.MaxThreadHold(),
-                    mtService.MaxQueriesPerWindow(),
-                    mtService.WindowSizeMs(),
-                    mtService.Smoothness()
+                    service.MaxThreadHold,
+                    service.MaxQueriesPerWindow,
+                    service.WindowSizeMs,
+                    service.Smoothness
                     );
 
                 retryHelper = new RetryHelper(
-                   mtService.FailedTimeoutMs(),
-                   mtService.RetryWaitingMs(),
-                   mtService.NumberOfRetries()
-                   );
-            }
-
-            if (options.GeneralSettings.EnableStatsAndLog && loggingHelper == null)
-            {
-                try
-                {
-                    string logdir = Path.Combine(options.GeneralSettings.DataDir, "Log");
-                    string logFile = $"{dllFileName}.{DateTime.Now:yyyy-MM-dd}.log";
-                    if (!Directory.Exists(logdir))
-                    {
-                        Directory.CreateDirectory(logdir);
-                    }
-                    loggingHelper = new LoggingHelper(Path.Combine(logdir, logFile));
-                }
-                catch
-                {
-                    // do nothing
-                }
+                   service.FailedTimeoutMs,
+                   service.RetryWaitingMs,
+                   service.NumberOfRetries
+                );
             }
 
             // TODO：多个 MultiSupplierMTEngine 应该共用一个 RateLimitHelper，否则一对多翻译时限流失效。
-            return new MultiSupplierMTEngine(args.SourceLangCode, args.TargetLangCode, options, mtService, limitHelper, retryHelper, loggingHelper);
+            return new MultiSupplierMTEngine(mtOptions, limitHelper, retryHelper, service, mtOptions.GeneralSettings.RequestType, args.SourceLangCode, args.TargetLangCode);
         }
 
         #endregion
+
+        private MultiSupplierMTOptions GetOrInitializeOptions(PluginSettings pluginSettings)
+        {
+            if (_mtOptions != null)
+                return _mtOptions;
+
+            lock (_lock)
+            {
+                if (_mtOptions != null)
+                    return _mtOptions;
+
+                var mtOptions = new MultiSupplierMTOptions(pluginSettings);
+
+                var general = mtOptions.GeneralSettings;
+
+                OptionsHelper.Init(mtOptions);
+
+                LocalizedHelper.Init(general.UILanguage);
+
+                LoggingHelper.Init(Path.Combine(general.DataDir, "Log"), _dllFileName, general.EnableStatsAndLog, general.LogLevel, general.LogRetentionDays);
+
+                ServiceHelper.Init(general.CustomOpenAICompatibleServiceInfos);
+
+                DatabaseHelper.Init(Path.Combine(general.DataDir, "Cache", "Translation"), _dllFileName);
+
+                CacheHelper.Init(DatabaseHelper.LiteDatebase);
+
+                StatsHelper.Init(DatabaseHelper.LiteDatebase);
+
+                ContextHelper.Init(_dllFileName);
+
+                _mtOptions = mtOptions;
+
+                return mtOptions;
+            }
+        }
     }
 }

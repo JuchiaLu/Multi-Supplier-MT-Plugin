@@ -2,46 +2,45 @@
 using MemoQ.Addins.Common.Utils;
 using MemoQ.MTInterfaces;
 using MultiSupplierMTPlugin.Helpers;
-using MultiSupplierMTPlugin.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LLH = MultiSupplierMTPlugin.Localized.LocalizedHelper;
-using LLK = MultiSupplierMTPlugin.Localized.LocalizedKeyEnum;
+using LLK = MultiSupplierMTPlugin.Localized.LocalizedKeyCommon;
 
 namespace MultiSupplierMTPlugin
 {
-    public class MultiSupplierMTSession : ISessionWithMetadata, ISessionForStoringTranslations
+    class MultiSupplierMTSession : ISessionWithMetadata, ISessionForStoringTranslations
     {
-        private readonly string srcLangCode;
+        private readonly MultiSupplierMTGeneralSettings _mtGeneralSettings;
+        private readonly MultiSupplierMTSecureSettings _mtSecureSettings;
 
-        private readonly string trgLangCode;
+        private readonly LimitHelper _limitHelper;
+        private readonly RetryHelper _retryHelper;
 
-        private readonly MultiSupplierMTOptions options;
+        private readonly MultiSupplierMTService _providerService;
+        private readonly RequestType _requestType;
 
-        private readonly MultiSupplierMTService mtService;
+        private readonly string _srcLangCode;
+        private readonly string _trgLangCode;
 
-        private readonly LimitHelper rateLimitHelper;
-
-        private readonly RetryHelper retryHelper;
-
-        private readonly LoggingHelper loggingHelper;
-
-        public MultiSupplierMTSession(string srcLangCode, string trgLangCode, MultiSupplierMTOptions options, MultiSupplierMTService mtService,
-            LimitHelper rateLimitHelper, RetryHelper retryHelper, LoggingHelper loggingHelper)
+        public MultiSupplierMTSession(MultiSupplierMTOptions mtOptions, LimitHelper limitHelper, RetryHelper retryHelper,
+            MultiSupplierMTService providerService, RequestType requestType, string srcLangCode, string trgLangCode)
         {
-            this.srcLangCode = srcLangCode;
-            this.trgLangCode = trgLangCode;
-            this.options = options;
-            this.mtService = mtService;
+            this._mtGeneralSettings = mtOptions.GeneralSettings;
+            this._mtSecureSettings = mtOptions.SecureSettings;
 
-            this.rateLimitHelper = rateLimitHelper;
-            this.retryHelper = retryHelper;
-            this.loggingHelper = loggingHelper;
+            this._limitHelper = limitHelper;
+            this._retryHelper = retryHelper;
+
+            this._providerService = providerService;
+            this._requestType = requestType;
+
+            this._srcLangCode = srcLangCode;
+            this._trgLangCode = trgLangCode;
         }
-
 
         #region ISessionWithMetadata Members
 
@@ -60,97 +59,28 @@ namespace MultiSupplierMTPlugin
             return TranslateCorrectSegment(new Segment[] { segm }, new Segment[] { tmSource }, new Segment[] { tmTarget }, metaData)[0];
         }
 
-        public TranslationResult[] TranslateCorrectSegment(Segment[] segs, Segment[] tmSources, Segment[] tmTargets, MTRequestMetadata metaData)
+        public TranslationResult[] TranslateCorrectSegment(Segment[] srcSegms, Segment[] tmSrcSegms, Segment[] tmTgtSegms, MTRequestMetadata metaData)
         {
-            TranslationResult[] results = new TranslationResult[segs.Length];
+            //memoQ 10.0 之前的版本不支持这两个参数
+            var hasTm = tmSrcSegms != null && tmTgtSegms != null;
 
-            // 这里如果抛出异常，只能说是编码错误，不处理这里的异常。
-            List<string> texts = segs.Select(s => convertSegment2String(s)).ToList(); 
+            //记录未翻译文本在原始列表中的位置，翻译后才能将结果放入原始位置
+            var untransOriginalIndices = new List<int>();  
+            
+            var untransSrcTexts = new List<string>();                  //未翻译的句段纯文本列表
+            var untransTmSrcTexts = hasTm ? new List<string>() : null; //未翻译句段关联的翻译记忆原文纯文本列表
+            var untransTmTgtTexts = hasTm ? new List<string>() : null; //未翻译句段关联的翻译记忆译文纯文本列表
 
-            List<int> noInCacheIndexes = new List<int>();
-            List<string> noInCacheTexts = new List<string>();
-            for (int i = 0; i < texts.Count; i++)
+            //最终翻译结果列表
+            TranslationResult[] results = new TranslationResult[srcSegms.Length];
+
+            //将句段分成两部分（同时转换成纯文本）：缓存中存在的转换到结果列表，缓存中未存在的转换到未翻译列表
+            DivideCachedAndUncached(srcSegms, tmSrcSegms, tmTgtSegms, untransSrcTexts, untransTmSrcTexts, untransTmTgtTexts, untransOriginalIndices, results);
+
+            //翻译缓存中未存在的
+            if (untransSrcTexts.Count > 0)
             {
-                if (this.options.GeneralSettings.EnableCache && CacheHelper.TryGet(generateKey(texts[i]), out string translationInCache))
-                {
-                    results[i] = new TranslationResult();
-                    // 这里不会抛出异常，保存到缓存时，转换出错的没有存进入。
-                    results[i].Translation = convertString2Segment(segs[i], translationInCache); 
-                }
-                else
-                {
-                    noInCacheIndexes.Add(i);
-                    noInCacheTexts.Add(texts[i]);
-                }
-            }
-
-            if (noInCacheTexts.Count != 0)
-            {
-                int batchSize = determineBatchSize(noInCacheTexts.Count);
-
-                List<Task> tasks = new List<Task>();
-                for (int i = 0; i < noInCacheTexts.Count; i += batchSize)
-                {
-                    List<string> batchTexts = noInCacheTexts.Skip(i).Take(batchSize).ToList();
-
-                    int startIndex = i;
-                    int endIndex = startIndex + batchTexts.Count;
-
-                    tasks.Add(Task.Run(async () => {
-                        try
-                        {
-                            List<string> batchTranslatedTexts = await translateCoreAsync(batchTexts, null, null, metaData);
-                            for (int j = startIndex; j < endIndex; j++)
-                            {
-                                results[noInCacheIndexes[j]] = new TranslationResult();
-                                try
-                                {
-                                    results[noInCacheIndexes[j]].Translation = convertString2Segment(segs[noInCacheIndexes[j]], batchTranslatedTexts[j - startIndex]);
-                                    if (this.options.GeneralSettings.EnableCache)
-                                    {
-                                        CacheHelper.Store(generateKey(noInCacheTexts[j]), batchTranslatedTexts[j - startIndex]);
-                                    }
-                                }
-                                catch (Exception ex)
-                                {
-                                    results[noInCacheIndexes[j]].Exception = new MTException(ex.Message, ex.Message, ex);
-                                    
-                                    if (options.GeneralSettings.EnableStatsAndLog && loggingHelper != null)
-                                    {
-                                        loggingHelper.Log(LLH.G(LLK.MultiSupplierMTSession_String2SegmentFail));
-                                    }
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            for (int j = startIndex; j < endIndex; j++)
-                            {
-                                results[noInCacheIndexes[j]] = new TranslationResult();
-                                results[noInCacheIndexes[j]].Exception = new MTException(ex.Message, ex.Message, ex);
-                            }
-
-                            if (options.GeneralSettings.EnableStatsAndLog && loggingHelper != null)
-                            {
-                                StringBuilder sb = new StringBuilder();
-                                
-                                sb.AppendLine(LLH.G(LLK.MultiSupplierMTSession_AllSegmentsTranslateFail, batchTexts.Count));
-                                sb.Append("\t").AppendLine(ex.Message);
-                                if (ex is AggregateException aggregate)
-                                {
-                                    foreach (var ie in aggregate.InnerExceptions)
-                                    {
-                                        sb.Append("\t\t").AppendLine(ie.Message);
-                                    }
-                                }
-
-                                loggingHelper.Log(sb.ToString());
-                            }
-                        }
-                    }));
-                }
-
-                Task.WhenAll(tasks).GetAwaiter().GetResult();
+                ProcessUncachedTranslations(srcSegms, untransSrcTexts, untransTmSrcTexts, untransTmTgtTexts, metaData, untransOriginalIndices, results);
             }
 
             return results;
@@ -158,88 +88,232 @@ namespace MultiSupplierMTPlugin
 
         #endregion
 
-        #region Helper Function
+        #region Helper Function 1
 
-        private async Task<List<string>> translateCoreAsync(List<string> batchTexts, List<string> tmSources, List<string> tmTargets, MTRequestMetadata metaData)
+        // 将句段分成两部分（同时转换成纯文本）：缓存中存在的转换到结果列表，缓存中未存在的转换到未翻译列表
+        private void DivideCachedAndUncached(
+            Segment[] srcSegms, Segment[] tmSrcSegms, Segment[] tmTgtSegms,
+            List<string> untransSrcTexts, List<string> untransTmSrcTexts, List<string> untransTmTgtTexts,
+            List<int> untransOriginalIndices, TranslationResult[] results)
         {
-            return await retryHelper.ExecWithRetryAsync(async (cToken) =>
+            bool hasTm = tmSrcSegms != null && tmTgtSegms != null;
+            List<string> srcTexts = srcSegms.Select(ConvertSegment2String).ToList();            
+
+            for (int i = 0; i < srcTexts.Count; i++)
             {
-                try
+                var inCache = CacheHelper.TryGet(_providerService.UniqueName, _requestType.ToString(), _srcLangCode, _trgLangCode, srcTexts[i], out string cachedTgtText);
+
+                if (_mtGeneralSettings.EnableCache && inCache)
                 {
-                    await rateLimitHelper.ThreadHoldWaitting();
-
-                    int waittingMs;
-                    while ((waittingMs = rateLimitHelper.GetRateWaittingMs()) > 0)
-                    {
-                        await Task.Delay(waittingMs);
-                    }
-
-                    if (options.GeneralSettings.EnableStatsAndLog)
-                    {
-                        StatsHelper.IncrementRequestTotal();
-                    }
-
-                    return await mtService.TranslateAsync(options, batchTexts, srcLangCode, trgLangCode, tmSources, tmTargets, metaData, cToken);
-                }
-                catch (Exception ex)
-                {
-                    if(options.GeneralSettings.EnableStatsAndLog)
-                    {
-                        StatsHelper.IncrementRequestFailed();
-                    }
-                    
-                    throw ex;
-                }
-                finally
-                {
-                    rateLimitHelper.ThreadHoldRelease();
-                }
-            });
-        }
-
-        private int determineBatchSize(int noInCacheTextsCount)
-        {
-            int batchSize;
-
-            if (!mtService.IsBatchSupported())
-            {
-                batchSize = 1;
-            }
-            else if (options.GeneralSettings.EnableCustomRequestLimit)
-            {
-                if (options.GeneralSettings.MaxSegmentsPerRequest <= 0)
-                {
-                    batchSize = noInCacheTextsCount;
+                    results[i] = new TranslationResult { Translation = ConvertString2Segment(srcSegms[i], cachedTgtText) };
                 }
                 else
                 {
-                    batchSize = options.GeneralSettings.MaxSegmentsPerRequest;
+                    untransOriginalIndices.Add(i);
+
+                    untransSrcTexts.Add(srcTexts[i]);
+                    if (hasTm)
+                    {
+                        untransTmSrcTexts?.Add(tmSrcSegms[i] != null ? ConvertSegment2String(tmSrcSegms[i]) : "");
+                        untransTmTgtTexts?.Add(tmTgtSegms[i] != null ? ConvertSegment2String(tmTgtSegms[i]) : "");
+                    }
                 }
             }
-            else
+        }
+
+        // 主翻译逻辑
+        private void ProcessUncachedTranslations(
+            Segment[] srcSegms,
+            List<string> untransSrcTexts, List<string> untransTmSrcTexts, List<string> untransTmTgtTexts, MTRequestMetadata metaData,
+            List<int> untransOriginalIndices, TranslationResult[] results)
+        {
+            var tasks = new List<Task>();
+            var batches = splitIntoBatches(untransSrcTexts);
+
+            foreach (var (startIndex, count) in batches)
             {
-                batchSize = mtService.MaxBatchSize();
+                var batchSrcTexts = untransSrcTexts.Skip(startIndex).Take(count).ToList();
+                var batchTmSrcTexts = untransTmSrcTexts?.Skip(startIndex).Take(count).ToList();
+                var batchTmTgtTexts = untransTmTgtTexts?.Skip(startIndex).Take(count).ToList();
+
+                tasks.Add(Task.Run(async () =>
+                {
+                    try
+                    {
+                        var batchTgtTexts = await TranslateCoreAsync(batchSrcTexts, batchTmSrcTexts, batchTmTgtTexts, metaData);
+                        
+                        for (int i = 0; i < batchSrcTexts.Count; i++)
+                        {
+                            int untransIndex = startIndex + i;                        // 在未翻译列表中的索引
+                            int originalIndex = untransOriginalIndices[untransIndex]; // 在原始列表中的索引
+
+                            var srcSegm = srcSegms[originalIndex];
+                            var srcText = batchSrcTexts[i];
+                            var tgtText = batchTgtTexts[i];
+
+                            results[originalIndex] = new TranslationResult();
+                            try
+                            {
+                                results[originalIndex].Translation = ConvertString2Segment(srcSegm, tgtText);
+
+                                if (_mtGeneralSettings.EnableCache)
+                                    CacheHelper.Store(_providerService.UniqueName, _requestType.ToString(), _srcLangCode, _trgLangCode, srcText, tgtText);
+                            }
+                            catch (Exception ex)
+                            {
+                                SetSingleExecption(results, originalIndex, ex);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        SetBatchException(results, untransOriginalIndices, startIndex, count, ex);
+                    }
+                }));
             }
 
-            return batchSize;
+            Task.WhenAll(tasks).GetAwaiter().GetResult();
         }
 
-        private string generateKey(string source)
+        // 大小限制（句段、字符限制）
+        private List<(int StartIndex, int Count)> splitIntoBatches(List<string> untransTexts)
         {
-            StringBuilder sb = new StringBuilder();
+            var batches = new List<(int StartIndex, int Count)>();
 
-            sb.Append(this.options.GeneralSettings.CurrentServiceProvider).Append("_")
-              .Append(this.options.GeneralSettings.RequestType).Append("_")
-              .Append(this.srcLangCode).Append("_")
-              .Append(this.trgLangCode).Append(":")
-              .Append(source);
+            // 不支持批量翻译，总是忽略句段限制和字符限制，逐个句段翻译
+            if (!_providerService.IsBatchSupported)
+            {
+                for (int i = 0; i < untransTexts.Count; i++)
+                {
+                    batches.Add((i, 1));
+                }
+                return batches;
+            }
 
-            return sb.ToString();
+            int maxSegments = _mtGeneralSettings.EnableCustomRequestLimit
+                ? _mtGeneralSettings.MaxSegmentsPerRequest
+                : _providerService.MaxSegments;
+
+            int maxCharacters = _mtGeneralSettings.EnableCustomRequestLimit
+                ? _mtGeneralSettings.MaxCharactersPerRequest
+                : _providerService.MaxCharacters;
+
+            bool limitSegments = maxSegments > 0;
+            bool limitCharacters = maxCharacters > 0;
+
+            int startIndex = 0;
+            while (startIndex < untransTexts.Count)
+            {
+                int segmCount = 0;
+                int charCount = 0;
+                
+                for (int i = startIndex; i < untransTexts.Count; i++)
+                {
+                    int nextLength = untransTexts[i]?.Length ?? 0;
+
+                    // 总是确保有一个句段，无论句段限制、字符限制是多少
+                    bool isNotFirstSegment = segmCount > 0;
+                    
+                    bool wouldExceedSegmentLimit = limitSegments && (segmCount + 1) > maxSegments;
+                    bool wouldExceedCharLimit = limitCharacters && (charCount + nextLength) > maxCharacters;
+                    
+                    if (isNotFirstSegment && (wouldExceedSegmentLimit || wouldExceedCharLimit))
+                        break;
+
+                    segmCount++;
+                    charCount += nextLength;
+                }
+
+                batches.Add((startIndex, segmCount));
+                startIndex += segmCount;
+            }
+
+            return batches;
         }
 
-        private string convertSegment2String(Segment segment)
+        // 并发限制、速率限制、重试限制
+        private async Task<List<string>> TranslateCoreAsync(List<string> batchTexts, List<string> tmSources, List<string> tmTargets, MTRequestMetadata metaData)
         {
-            switch (this.options.GeneralSettings.RequestType)
+            // 重试限制放在外部缺点：请求还没真正发起，就可能会超时失败
+            // 重试限制放在内部缺点：失败重试时，并发限制、速率限制不再起作用
+            // TODO：拆分超时和重试限制
+            // TOOD：失败重试时，也要受到并发限制、速率限制
+            // TODO: 重新实现生产者消费者模型限流，而不是直接就启动一个线程空转等待
+            try
+            {
+                await _limitHelper.ThreadHoldWaitting();
+
+                int waittingMs;
+                while ((waittingMs = _limitHelper.GetRateWaittingMs()) > 0)
+                {
+                    await Task.Delay(waittingMs);
+                }
+
+                return await _retryHelper.ExecWithRetryAsync(async (cToken) =>
+                {
+                    List<string> result;
+                    try
+                    {
+                        result = await _providerService.TranslateAsync(batchTexts, _srcLangCode, _trgLangCode, tmSources, tmTargets, metaData, cToken);
+                    }
+                    catch (Exception ex)
+                    {
+                        if (_mtGeneralSettings.EnableStatsAndLog) StatsHelper.IncrementRequestFailed();
+
+                        throw ex;
+                    }
+
+                    if (_mtGeneralSettings.EnableStatsAndLog) StatsHelper.IncrementRequestSuccess();
+
+                    return result;
+                });
+            }
+            finally
+            {
+                _limitHelper.ThreadHoldRelease();
+            }
+        }
+        #endregion
+
+        #region Helper Function 2
+        private void SetSingleExecption(TranslationResult[] results, int originalIndex, Exception ex)
+        {
+            string msg = LLH.G(LLK.MultiSupplierMTSession_String2SegmentFail);
+            results[originalIndex].Exception = new MTException(msg, msg, ex);
+            LoggingHelper.Warn(msg);
+        }
+
+        private void SetBatchException(TranslationResult[] results, List<int> untransOriginalIndices, int BatchStartIndex, int BatchCount, Exception ex)
+        {
+            var msgBuilder = new StringBuilder();
+            msgBuilder.AppendLine(LLH.G(LLK.MultiSupplierMTSession_AllSegmentsTranslateFail, BatchCount));
+            msgBuilder.AppendLine("\t" + ex.Message);
+
+            if (ex is AggregateException agEx)
+            {
+                foreach (var inner in agEx.InnerExceptions)
+                    msgBuilder.AppendLine("\t\t" + inner.Message);
+            }
+
+            string finalMsg = msgBuilder.ToString().TrimEnd();
+
+            for (int i = 0; i < BatchCount; i++)
+            {
+                int untransIndex = BatchStartIndex + i;
+                int originalIndex = untransOriginalIndices[untransIndex];
+
+                results[originalIndex] = new TranslationResult
+                {
+                    Exception = new MTException(finalMsg, finalMsg, ex)
+                };
+            }
+
+            LoggingHelper.Warn(finalMsg);
+        }
+
+        private string ConvertSegment2String(Segment segment)
+        {
+            switch (_requestType)
             {
                 case RequestType.OnlyFormattingWithXml:
                     return SegmentXMLConverter.ConvertSegment2Xml(segment, false, true);
@@ -254,31 +328,32 @@ namespace MultiSupplierMTPlugin
             }
         }
 
-        private Segment convertString2Segment(Segment originalSegment, string translatedText)
+        private Segment ConvertString2Segment(Segment originalSegment, string translatedText)
         {
-            RequestType requestType = this.options.GeneralSettings.RequestType;
-
             Segment segment;
-            if (options.GeneralSettings.CurrentServiceProvider.Equals("TestBuiltIn"))
-            {
-                return SegmentBuilder.CreateFromString(translatedText);
-            }
-            else if (requestType == RequestType.Plaintext)
-            {
-                segment = SegmentBuilder.CreateFromString(translatedText);
-            }
-            else if (requestType == RequestType.OnlyFormattingWithXml || requestType == RequestType.BothFormattingAndTagsWithXml)
+            if (_requestType == RequestType.OnlyFormattingWithXml || _requestType == RequestType.BothFormattingAndTagsWithXml)
             {
                 segment = SegmentXMLConverter.ConvertXML2Segment(translatedText, originalSegment.ITags);
             }
-            else
+            else if(_requestType == RequestType.OnlyFormattingWithHtml || _requestType == RequestType.BothFormattingAndTagsWithHtml)
             {
                 segment = SegmentHtmlConverter.ConvertHtml2Segment(translatedText, originalSegment.ITags);
             }
-
-            if (requestType == RequestType.Plaintext || requestType == RequestType.OnlyFormattingWithXml || requestType == RequestType.OnlyFormattingWithHtml)
+            else
             {
-                if (this.options.GeneralSettings.InsertRequiredTagsToEnd)
+                segment = SegmentBuilder.CreateFromString(translatedText);
+            }
+
+            if (_requestType == RequestType.BothFormattingAndTagsWithXml || _requestType == RequestType.BothFormattingAndTagsWithHtml)
+            {
+                if (_mtGeneralSettings.NormalizeWhitespaceAroundTags)
+                {
+                    segment = TagWhitespaceNormalizer.NormalizeWhitespaceAroundTags(originalSegment, segment, this._srcLangCode, this._trgLangCode);
+                }
+            }
+            else
+            {
+                if (_mtGeneralSettings.InsertRequiredTagsToEnd)
                 {
                     SegmentBuilder sb = new SegmentBuilder();
                     sb.AppendSegment(segment);
@@ -287,13 +362,6 @@ namespace MultiSupplierMTPlugin
                         sb.AppendInlineTag(it);
 
                     segment = sb.ToSegment();
-                }
-            }
-            else
-            {
-                if (this.options.GeneralSettings.NormalizeWhitespaceAroundTags)
-                {
-                    segment = TagWhitespaceNormalizer.NormalizeWhitespaceAroundTags(originalSegment, segment, this.srcLangCode, this.trgLangCode);
                 }
             }
 
@@ -316,7 +384,9 @@ namespace MultiSupplierMTPlugin
             {
                 try
                 {
-                    CacheHelper.Store(generateKey(convertSegment2String(transunits[i].Source)), convertSegment2String(transunits[i].Target));
+                    CacheHelper.Store(_providerService.UniqueName, _requestType.ToString(), _srcLangCode, _trgLangCode, 
+                        ConvertSegment2String(transunits[i].Source), ConvertSegment2String(transunits[i].Target));
+                    
                     stored[i] = i;
                 }
                 catch

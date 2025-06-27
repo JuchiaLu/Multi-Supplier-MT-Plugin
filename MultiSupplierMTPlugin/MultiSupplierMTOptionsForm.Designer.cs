@@ -31,8 +31,6 @@
             this.buttonOK = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.comboBoxRequestType = new System.Windows.Forms.ComboBox();
-            this.labelRequestType = new System.Windows.Forms.Label();
-            this.labelServiceProvider = new System.Windows.Forms.Label();
             this.comboBoxServiceProvider = new System.Windows.Forms.ComboBox();
             this.checkBoxTranslateCache = new System.Windows.Forms.CheckBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -43,10 +41,15 @@
             this.linkLabelCustomRequestLimit = new System.Windows.Forms.LinkLabel();
             this.linkLabelCustomDisplayName = new System.Windows.Forms.LinkLabel();
             this.checkBoxCustomDisplayName = new System.Windows.Forms.CheckBox();
-            this.buttonHelp = new System.Windows.Forms.Button();
+            this.buttonGithub = new System.Windows.Forms.Button();
             this.linkLabelTranslateCache = new System.Windows.Forms.LinkLabel();
             this.linkLabelStatsAndLog = new System.Windows.Forms.LinkLabel();
             this.checkBoxStatsAndLog = new System.Windows.Forms.CheckBox();
+            this.checkBoxTagsToEndFake = new System.Windows.Forms.CheckBox();
+            this.checkBoxNormalizeWhitespaceFake = new System.Windows.Forms.CheckBox();
+            this.linkLabelProvider = new System.Windows.Forms.LinkLabel();
+            this.comboBoxLanguages = new System.Windows.Forms.ComboBox();
+            this.linkLabelRequestType = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -57,7 +60,7 @@
             this.buttonOK.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(100, 27);
-            this.buttonOK.TabIndex = 14;
+            this.buttonOK.TabIndex = 15;
             this.buttonOK.Text = "&OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             // 
@@ -69,7 +72,7 @@
             this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(100, 27);
-            this.buttonCancel.TabIndex = 15;
+            this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -82,25 +85,6 @@
             this.comboBoxRequestType.Name = "comboBoxRequestType";
             this.comboBoxRequestType.Size = new System.Drawing.Size(380, 23);
             this.comboBoxRequestType.TabIndex = 3;
-            this.comboBoxRequestType.SelectedIndexChanged += new System.EventHandler(this.comboBoxRequestType_SelectedIndexChanged);
-            // 
-            // labelRequestType
-            // 
-            this.labelRequestType.Location = new System.Drawing.Point(14, 80);
-            this.labelRequestType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelRequestType.Name = "labelRequestType";
-            this.labelRequestType.Size = new System.Drawing.Size(165, 18);
-            this.labelRequestType.TabIndex = 2;
-            this.labelRequestType.Text = "Request Type";
-            // 
-            // labelServiceProvider
-            // 
-            this.labelServiceProvider.Location = new System.Drawing.Point(14, 28);
-            this.labelServiceProvider.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelServiceProvider.Name = "labelServiceProvider";
-            this.labelServiceProvider.Size = new System.Drawing.Size(203, 18);
-            this.labelServiceProvider.TabIndex = 0;
-            this.labelServiceProvider.Text = "Service Provider";
             // 
             // comboBoxServiceProvider
             // 
@@ -203,17 +187,17 @@
             this.checkBoxCustomDisplayName.TabIndex = 8;
             this.checkBoxCustomDisplayName.UseVisualStyleBackColor = true;
             // 
-            // buttonHelp
+            // buttonGithub
             // 
-            this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonHelp.Location = new System.Drawing.Point(502, 270);
-            this.buttonHelp.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.buttonHelp.Name = "buttonHelp";
-            this.buttonHelp.Size = new System.Drawing.Size(100, 27);
-            this.buttonHelp.TabIndex = 16;
-            this.buttonHelp.Text = "&Help";
-            this.buttonHelp.UseVisualStyleBackColor = true;
-            this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
+            this.buttonGithub.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonGithub.Location = new System.Drawing.Point(502, 270);
+            this.buttonGithub.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonGithub.Name = "buttonGithub";
+            this.buttonGithub.Size = new System.Drawing.Size(100, 27);
+            this.buttonGithub.TabIndex = 17;
+            this.buttonGithub.Text = "&Github";
+            this.buttonGithub.UseVisualStyleBackColor = true;
+            this.buttonGithub.Click += new System.EventHandler(this.buttonGithub_Click);
             // 
             // linkLabelTranslateCache
             // 
@@ -248,6 +232,59 @@
             this.checkBoxStatsAndLog.TabIndex = 10;
             this.checkBoxStatsAndLog.UseVisualStyleBackColor = true;
             // 
+            // checkBoxTagsToEndFake
+            // 
+            this.checkBoxTagsToEndFake.AutoSize = true;
+            this.checkBoxTagsToEndFake.Enabled = false;
+            this.checkBoxTagsToEndFake.Location = new System.Drawing.Point(12, 124);
+            this.checkBoxTagsToEndFake.Name = "checkBoxTagsToEndFake";
+            this.checkBoxTagsToEndFake.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxTagsToEndFake.TabIndex = 18;
+            this.checkBoxTagsToEndFake.UseVisualStyleBackColor = true;
+            this.checkBoxTagsToEndFake.Visible = false;
+            // 
+            // checkBoxNormalizeWhitespaceFake
+            // 
+            this.checkBoxNormalizeWhitespaceFake.AutoSize = true;
+            this.checkBoxNormalizeWhitespaceFake.Enabled = false;
+            this.checkBoxNormalizeWhitespaceFake.Location = new System.Drawing.Point(312, 125);
+            this.checkBoxNormalizeWhitespaceFake.Name = "checkBoxNormalizeWhitespaceFake";
+            this.checkBoxNormalizeWhitespaceFake.Size = new System.Drawing.Size(18, 17);
+            this.checkBoxNormalizeWhitespaceFake.TabIndex = 19;
+            this.checkBoxNormalizeWhitespaceFake.UseVisualStyleBackColor = true;
+            this.checkBoxNormalizeWhitespaceFake.Visible = false;
+            // 
+            // linkLabelProvider
+            // 
+            this.linkLabelProvider.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.linkLabelProvider.Location = new System.Drawing.Point(14, 27);
+            this.linkLabelProvider.Name = "linkLabelProvider";
+            this.linkLabelProvider.Size = new System.Drawing.Size(194, 18);
+            this.linkLabelProvider.TabIndex = 0;
+            this.linkLabelProvider.TabStop = true;
+            this.linkLabelProvider.Text = "Provider";
+            this.linkLabelProvider.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelProvider_LinkClicked);
+            // 
+            // comboBoxLanguages
+            // 
+            this.comboBoxLanguages.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLanguages.FormattingEnabled = true;
+            this.comboBoxLanguages.Location = new System.Drawing.Point(12, 272);
+            this.comboBoxLanguages.Name = "comboBoxLanguages";
+            this.comboBoxLanguages.Size = new System.Drawing.Size(188, 23);
+            this.comboBoxLanguages.TabIndex = 14;
+            // 
+            // linkLabelRequestType
+            // 
+            this.linkLabelRequestType.LinkBehavior = System.Windows.Forms.LinkBehavior.NeverUnderline;
+            this.linkLabelRequestType.Location = new System.Drawing.Point(14, 77);
+            this.linkLabelRequestType.Name = "linkLabelRequestType";
+            this.linkLabelRequestType.Size = new System.Drawing.Size(194, 18);
+            this.linkLabelRequestType.TabIndex = 2;
+            this.linkLabelRequestType.TabStop = true;
+            this.linkLabelRequestType.Text = "Request Type";
+            this.linkLabelRequestType.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelRequestType_LinkClicked);
+            // 
             // MultiSupplierMTOptionsForm
             // 
             this.AcceptButton = this.buttonOK;
@@ -255,10 +292,14 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(609, 313);
+            this.Controls.Add(this.comboBoxLanguages);
+            this.Controls.Add(this.linkLabelProvider);
+            this.Controls.Add(this.checkBoxNormalizeWhitespaceFake);
+            this.Controls.Add(this.checkBoxTagsToEndFake);
             this.Controls.Add(this.linkLabelStatsAndLog);
             this.Controls.Add(this.checkBoxStatsAndLog);
             this.Controls.Add(this.linkLabelTranslateCache);
-            this.Controls.Add(this.buttonHelp);
+            this.Controls.Add(this.buttonGithub);
             this.Controls.Add(this.linkLabelCustomDisplayName);
             this.Controls.Add(this.checkBoxCustomDisplayName);
             this.Controls.Add(this.linkLabelCustomRequestLimit);
@@ -267,11 +308,10 @@
             this.Controls.Add(this.checkBoxNormalizeWhitespace);
             this.Controls.Add(this.checkBoxTranslateCache);
             this.Controls.Add(this.comboBoxServiceProvider);
-            this.Controls.Add(this.labelServiceProvider);
-            this.Controls.Add(this.labelRequestType);
             this.Controls.Add(this.comboBoxRequestType);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
+            this.Controls.Add(this.linkLabelRequestType);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
@@ -291,8 +331,6 @@
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.ComboBox comboBoxRequestType;
-        private System.Windows.Forms.Label labelRequestType;
-        private System.Windows.Forms.Label labelServiceProvider;
         private System.Windows.Forms.ComboBox comboBoxServiceProvider;
         private System.Windows.Forms.CheckBox checkBoxTranslateCache;
         private System.Windows.Forms.TabPage tabPage1;
@@ -303,9 +341,14 @@
         private System.Windows.Forms.LinkLabel linkLabelCustomRequestLimit;
         private System.Windows.Forms.LinkLabel linkLabelCustomDisplayName;
         private System.Windows.Forms.CheckBox checkBoxCustomDisplayName;
-        private System.Windows.Forms.Button buttonHelp;
+        private System.Windows.Forms.Button buttonGithub;
         private System.Windows.Forms.LinkLabel linkLabelTranslateCache;
         private System.Windows.Forms.LinkLabel linkLabelStatsAndLog;
         private System.Windows.Forms.CheckBox checkBoxStatsAndLog;
+        private System.Windows.Forms.CheckBox checkBoxTagsToEndFake;
+        private System.Windows.Forms.CheckBox checkBoxNormalizeWhitespaceFake;
+        private System.Windows.Forms.LinkLabel linkLabelProvider;
+        private System.Windows.Forms.ComboBox comboBoxLanguages;
+        private System.Windows.Forms.LinkLabel linkLabelRequestType;
     }
 }

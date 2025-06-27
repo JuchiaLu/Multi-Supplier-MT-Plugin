@@ -1,0 +1,4 @@
+﻿namespace MultiSupplierMTPlugin.Providers.YandexBuiltIn
+{
+
+}

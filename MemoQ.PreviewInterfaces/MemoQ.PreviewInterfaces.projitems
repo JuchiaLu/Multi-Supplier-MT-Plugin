@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>db1c00d1-d626-49ee-8881-870f241c0027</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>MemoQ.PreviewInterfaces</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)CallbackHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\ContentComplexityLevel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\FocusedRange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MQToPreviewTool\ChangeHighlightRequestFromMQ.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MQToPreviewTool\ContentUpdateRequestFromMQ.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MQToPreviewTool\ErrorCodes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MQToPreviewTool\PreviewContent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MQToPreviewTool\PreviewPart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MQToPreviewTool\PreviewPartIdUpdateRequestFromMQ.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MQToPreviewTool\PreviewPartWithFocusedRange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MQToPreviewTool\PreviewProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MQToPreviewTool\RegistrationRequestStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MQToPreviewTool\RequestStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\MQToPreviewTool\SourceDocument.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\PreviewToolToMQ\ChangeHighlightRequestFromPreviewTool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\PreviewToolToMQ\ChangeRuntimeSettingsRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\PreviewToolToMQ\CommunicationProtocols.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\PreviewToolToMQ\ContentUpdateRequestFromPreviewTool.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\PreviewToolToMQ\PropertyNames.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\PreviewToolToMQ\RegistrationRequest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\NegotiationFailedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PreviewServiceUnavailableException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PreviewToolAlreadyConnectedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Exceptions\PreviewToolNotConnectedException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IPreviewToolCallback.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PreviewServiceProxy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\ClientPipe.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\ContentComplexityLevel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\FocusedRange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\ChangeHighlightRequestFromMQParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\ContentUpdateRequestFromMQParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\ErrorCodes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\InvalidRequestParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\NegotiationResponseParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\PreviewContent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\PreviewPart.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\PreviewPartIdUpdateRequestFromMQParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\PreviewPartWithFocusedRange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\PreviewProperty.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\RequestAcceptedParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\RequestRefusedParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\SourceDocument.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\ChangeHighlightRequestFromPreviewToolParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\ChangeRuntimeSettingsRequestParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\ContentUpdateRequestFromPreviewToolParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\NegotiationRequestParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\PreviewPartIdUpdateRequestFromPreviewToolParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\RegistrationRequestParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\SimpleConnectionRequestParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\CommandParameters\ProtocolVersions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\Conversion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\PipeCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\PipeCommandTypes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\Communication\PipeEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\NamedPipe\NamedPipeProtocolWrapper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ProtcolWrappers\ProtocolWrapperBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)app.config" />
+    <None Include="$(MSBuildThisFileDirectory)MemoQ.PreviewInterfaces.csproj" />
+    <None Include="$(MSBuildThisFileDirectory)packages.config" />
+  </ItemGroup>
+</Project>

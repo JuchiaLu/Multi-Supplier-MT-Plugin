@@ -1,39 +1,40 @@
 ﻿using MemoQ.MTInterfaces;
 using MultiSupplierMTPlugin.Helpers;
-using MultiSupplierMTPlugin.Services;
 using System;
 using System.Drawing;
 using System.Reflection;
 
 namespace MultiSupplierMTPlugin
 {
-    public class MultiSupplierMTEngine : EngineBase
+    class MultiSupplierMTEngine : EngineBase
     {
-        private readonly string srcLangCode;
+        private readonly MultiSupplierMTOptions _mtOptions;
 
-        private readonly string trgLangCode;
+        private readonly LimitHelper _limitHelper;
 
-        private readonly MultiSupplierMTOptions options;
+        private readonly RetryHelper _retryHelper;
 
-        private readonly MultiSupplierMTService mtService;
+        private readonly MultiSupplierMTService _providerService;
 
-        private readonly LimitHelper rateLimitHelper;
+        private readonly RequestType _requestType;
 
-        private readonly RetryHelper retryHelper;
+        private readonly string _srcLangCode;
 
-        private readonly LoggingHelper loggingHelper;
+        private readonly string _trgLangCode;
 
-        public MultiSupplierMTEngine(string srcLangCode, string trgLangCode, MultiSupplierMTOptions options, MultiSupplierMTService mtService,
-            LimitHelper rateLimitHelper, RetryHelper retryHelper, LoggingHelper loggingHelper)
+        public MultiSupplierMTEngine(MultiSupplierMTOptions mtOptions, LimitHelper rateLimitHelper, RetryHelper retryHelper,
+            MultiSupplierMTService providerService, RequestType _requestType, string srcLangCode, string trgLangCode)
         {
-            this.srcLangCode = srcLangCode;
-            this.trgLangCode = trgLangCode;
-            this.options = options;
-            this.mtService = mtService;
+            this._mtOptions = mtOptions;
 
-            this.rateLimitHelper = rateLimitHelper;
-            this.retryHelper = retryHelper;
-            this.loggingHelper = loggingHelper;
+            this._limitHelper = rateLimitHelper;
+            this._retryHelper = retryHelper;
+
+            this._providerService = providerService;
+            this._requestType = _requestType;
+
+            this._srcLangCode = srcLangCode;
+            this._trgLangCode = trgLangCode;
         }
 
         #region IEngine Members
@@ -58,12 +59,12 @@ namespace MultiSupplierMTPlugin
 
         public override ISession CreateLookupSession()
         {
-            return new MultiSupplierMTSession(srcLangCode, trgLangCode, options, mtService, rateLimitHelper, retryHelper, loggingHelper);
+            return new MultiSupplierMTSession(_mtOptions, _limitHelper, _retryHelper, _providerService, _requestType, _srcLangCode, _trgLangCode);
         }
 
         public override ISessionForStoringTranslations CreateStoreTranslationSession()
         {
-            return new MultiSupplierMTSession(srcLangCode, trgLangCode, options, mtService, rateLimitHelper, retryHelper, loggingHelper);
+            return new MultiSupplierMTSession(_mtOptions, _limitHelper, _retryHelper, _providerService, _requestType, _srcLangCode, _trgLangCode);
         }
 
         #endregion

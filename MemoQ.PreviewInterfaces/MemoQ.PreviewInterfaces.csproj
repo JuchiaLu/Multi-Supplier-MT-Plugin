@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C54909AD-571C-4C6F-A99B-35F00CE7C143}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MemoQ.PreviewInterfaces</RootNamespace>
+    <AssemblyName>MemoQ.PreviewInterfaces</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.4\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.4\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.SelfHost, Version=5.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.SelfHost.5.2.4\lib\net45\System.Web.Http.SelfHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CallbackHandler.cs" />
+    <Compile Include="Entities\MQToPreviewTool\ChangeHighlightRequestFromMQ.cs" />
+    <Compile Include="Entities\MQToPreviewTool\ContentUpdateRequestFromMQ.cs" />
+    <Compile Include="Entities\MQToPreviewTool\ErrorCodes.cs" />
+    <Compile Include="Entities\MQToPreviewTool\PreviewContent.cs" />
+    <Compile Include="Entities\MQToPreviewTool\PreviewPartIdUpdateRequestFromMQ.cs" />
+    <Compile Include="Entities\MQToPreviewTool\RegistrationRequestStatus.cs" />
+    <Compile Include="Entities\PreviewToolToMQ\ChangeRuntimeSettingsRequest.cs" />
+    <Compile Include="Entities\PreviewToolToMQ\CommunicationProtocols.cs" />
+    <Compile Include="Entities\MQToPreviewTool\RequestStatus.cs" />
+    <Compile Include="Entities\ContentComplexityLevel.cs" />
+    <Compile Include="Entities\PreviewToolToMQ\ContentUpdateRequestFromPreviewTool.cs" />
+    <Compile Include="Entities\MQToPreviewTool\PreviewProperty.cs" />
+    <Compile Include="Entities\FocusedRange.cs" />
+    <Compile Include="Entities\MQToPreviewTool\PreviewPart.cs" />
+    <Compile Include="Entities\MQToPreviewTool\PreviewPartWithFocusedRange.cs" />
+    <Compile Include="Entities\PreviewToolToMQ\ChangeHighlightRequestFromPreviewTool.cs" />
+    <Compile Include="Entities\PreviewToolToMQ\PropertyNames.cs" />
+    <Compile Include="Entities\PreviewToolToMQ\RegistrationRequest.cs" />
+    <Compile Include="Entities\MQToPreviewTool\SourceDocument.cs" />
+    <Compile Include="Exceptions\NegotiationFailedException.cs" />
+    <Compile Include="Exceptions\PreviewServiceUnavailableException.cs" />
+    <Compile Include="Exceptions\PreviewToolAlreadyConnectedException.cs" />
+    <Compile Include="Exceptions\PreviewToolNotConnectedException.cs" />
+    <Compile Include="Interfaces\IPreviewToolCallback.cs" />
+    <Compile Include="PreviewServiceProxy.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\ClientPipe.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\ErrorCodes.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\NegotiationResponseParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\PreviewContent.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\RequestAcceptedParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\ChangeRuntimeSettingsRequestParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\NegotiationRequestParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\Conversion.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\FocusedRange.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\ChangeHighlightRequestFromMQParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\ContentUpdateRequestFromMQParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\PreviewProperty.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\InvalidRequestParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\PreviewPart.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\PreviewPartIdUpdateRequestFromMQParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\PreviewPartWithFocusedRange.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\RequestRefusedParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\MQToPreviewTool\SourceDocument.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\ChangeHighlightRequestFromPreviewToolParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\ContentComplexityLevel.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\ContentUpdateRequestFromPreviewToolParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\PreviewPartIdUpdateRequestFromPreviewToolParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\RegistrationRequestParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\PreviewToolToMQ\SimpleConnectionRequestParameters.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\PipeCommand.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\PipeCommandTypes.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\PipeEventArgs.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\Communication\CommandParameters\ProtocolVersions.cs" />
+    <Compile Include="ProtcolWrappers\NamedPipe\NamedPipeProtocolWrapper.cs" />
+    <Compile Include="ProtcolWrappers\ProtocolWrapperBase.cs" />
+    <Compile Include="ProtcolWrappers\REST\Callback\CallbackController.cs" />
+    <Compile Include="ProtcolWrappers\REST\Callback\CallbackService.cs" />
+    <Compile Include="ProtcolWrappers\REST\Callback\CallbackServiceContext.cs" />
+    <Compile Include="ProtcolWrappers\REST\Callback\ICallbackHandler.cs" />
+    <Compile Include="ProtcolWrappers\REST\Callback\MessagePartInfo.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Conversion.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\FocusedRange.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\ErrorCodes.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\ErrorDetails.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\NegotiationResponse.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\PreviewContent.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\PreviewToolToMQ\ChangeRuntimeSettingsRequest.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\PreviewToolToMQ\ChangeHighlightRequestFromPreviewTool.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\ContentComplexityLevel.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\PreviewToolToMQ\ContentUpdateRequestFromPreviewTool.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\PreviewToolToMQ\NegotiationRequest.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\PreviewToolToMQ\RegistrationRequest.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\ChangeHighlightRequestFromMQ.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\ConnectionResponse.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\ContentUpdateRequestFromMQ.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\PreviewProperty.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\PreviewPart.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\PreviewPartIdUpdateRequestFromMQ.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\PreviewPartWithFocusedRange.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\MQToPreviewTool\SourceDocument.cs" />
+    <Compile Include="ProtcolWrappers\REST\Communication\Model\ProtocolVersions.cs" />
+    <Compile Include="ProtcolWrappers\REST\MessageHandlers\CallbackServiceContextMessageHandler.cs" />
+    <Compile Include="ProtcolWrappers\REST\RestProtocolWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

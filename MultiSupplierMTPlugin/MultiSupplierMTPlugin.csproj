@@ -2,14 +2,50 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net48</TargetFrameworks>
+        <UseWindowsForms>true</UseWindowsForms>
 		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<AssemblyVersion>1.1.0</AssemblyVersion>
-		<FileVersion>1.1.0</FileVersion>
+		<AssemblyVersion>1.2.9</AssemblyVersion>
+		<FileVersion>1.2.9</FileVersion>
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Libs\**" />
+	  <EmbeddedResource Remove="Libs\**" />
+	  <None Remove="Libs\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Forms\FormAnthropic.resx~RF1865362b.TMP" />
+	  <None Remove="Forms\FormBaidu.resx~RF684e6868.TMP" />
+	  <None Remove="Forms\FormBaidu.resx~RF6b5ac693.TMP" />
+	  <None Remove="Forms\FormBathTranslateFormat.resx~RF98e04bc8.TMP" />
+	  <None Remove="Forms\FormFreeOpenSourceTip.resx~RF49561604.TMP" />
+	  <None Remove="Forms\FormOpenAI.Designer.cs~RF659157df.TMP" />
+	  <None Remove="Forms\FormOpenAI.resx~RF284c921d.TMP" />
+	  <None Remove="Forms\FormOpenAI.resx~RF418d8601.TMP" />
+	  <None Remove="Forms\FormOpenAI.resx~RF41f0c829.TMP" />
+	  <None Remove="Forms\FormOpenAI.resx~RF6551858d.TMP" />
+	  <None Remove="Forms\FormOpenAI.resx~RF673dc6c4.TMP" />
+	  <None Remove="Forms\FormOpenAICompatibleProvider.resx~RF4d688f3e.TMP" />
+	  <None Remove="Forms\FormOpenAICompatibleProvider.resx~RF4d9aef0f.TMP" />
+	  <None Remove="Forms\FormOpenAICompatibleProvider.resx~RF5aa0d479.TMP" />
+	  <None Remove="Forms\FormProviderManage.resx~RF7e3e255.TMP" />
+	  <None Remove="Forms\l1mvhtq5.5c5~" />
+	  <None Remove="Forms\RequestTypeLimit.resx~RF132aedc5.TMP" />
+	  <None Remove="Forms\StatsAndLog.resx~RFc2147b99.TMP" />
+	  <None Remove="Helpers\fbpwgpeo.pp4~" />
+	  <None Remove="Helpers\GlossaryHelper.cs~RFba52fd0a.TMP" />
+	  <None Remove="Helpers\HttpHelper.cs~RFb18cf873.TMP" />
 	  <None Remove="Icon.png" />
+	  <None Remove="MultiSupplierMTOptionsForm.resx~RF576f747d.TMP" />
+	  <None Remove="ProvidersCommon\Forms\LLM\CustomModels.Designer.cs~RFe02b4c7f.TMP" />
+	  <None Remove="ProvidersCommon\Forms\LLM\hoeaciyl.2lq~" />
+	  <None Remove="ProvidersCommon\Forms\LLM\PromptPlaceholders.cs~RFdc936215.TMP" />
+	  <None Remove="ProvidersCommon\Forms\LLM\PromptPlaceholders.resx~RFd3308c7.TMP" />
+	  <None Remove="ProvidersCommon\Forms\LLM\PromptTemplateManage.resx~RFc978a1bc.TMP" />
+	  <None Remove="ProvidersCommon\LLMShareOptions.cs~RFafcdf97a.TMP" />
+	  <None Remove="ProvidersCommon\Options\LLM\LLMShareOptions.cs~RFd62ec2ed.TMP" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -17,6 +53,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Costura.Fody" Version="6.0.0">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="LiteDB" Version="5.0.21" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
@@ -33,48 +74,71 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Forms\FormCustomDisplayName.cs">
+	  <Compile Update="Forms\CheckFailedDetails.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormClaude.cs">
+	  <Compile Update="Forms\RequestTypeLimit.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormTranslateCache.cs">
+	  <Compile Update="ProvidersCommon\Forms\LLM\BathTranslate.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormCustomLimit.cs">
+	  <Compile Update="Forms\OpenAICompatibleProvider.cs" />
+	  <Compile Update="ProvidersCommon\Forms\LLM\CustomModels.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormPapago.cs">
+	  <Compile Update="ProvidersCommon\Forms\LLM\PromptTemplateManage.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormOpenai.cs">
+	  <Compile Update="Providers\Yandex\OptionsForm.cs" />
+	  <Compile Update="Providers\DeepL\OptionsForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormXunfei.cs">
+	  <Compile Update="Providers\DeepLX\OptionsForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormYoudao.cs">
+	  <Compile Update="Forms\ProvidersManage.cs" />
+	  <Compile Update="Forms\FreeOpenSourceTip.cs" />
+	  <Compile Update="ProvidersCommon\Forms\LLM\PromptPlaceholders.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormNiutrans.cs">
+	  <Compile Update="Forms\CustomDisplayName.cs" />
+	  <Compile Update="Forms\TranslateCache.cs" />
+	  <Compile Update="Forms\CustomLimit.cs" />
+	  <Compile Update="Providers\Papago\OptionsForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormCaiyun.cs">
+	  <Compile Update="ProvidersCommon\Forms\LLM\OptionsForm.cs" />
+	  <Compile Update="Providers\Xunfei\OptionsForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormHuoshan.cs">
+	  <Compile Update="Providers\Youdao\OptionsForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormTencent.cs">
+	  <Compile Update="Providers\Niutrans\OptionsForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormAliyun.cs">
+	  <Compile Update="Providers\Caiyun\OptionsForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
-	  <Compile Update="Forms\FormBaidu.cs">
+	  <Compile Update="Providers\Huoshan\OptionsForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Providers\Tencent\OptionsForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Providers\Aliyun\OptionsForm.cs">
+	    <SubType>Form</SubType>
+	  </Compile>
+	  <Compile Update="Providers\Baidu\OptionsForm.cs">
 	    <SubType>Form</SubType>
 	  </Compile>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="ProvidersCommon\Forms\NMT\" />
+	</ItemGroup>
+
+	<Import Project="..\MemoQ.PreviewInterfaces\MemoQ.PreviewInterfaces.projitems" Label="Shared" />
 
 </Project>

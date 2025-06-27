@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DllGenerator", "DllGenerato
 		{79FCC726-7F7C-45AC-9EAF-1F46E09F73B8} = {79FCC726-7F7C-45AC-9EAF-1F46E09F73B8}
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "MemoQ.PreviewInterfaces", "MemoQ.PreviewInterfaces\MemoQ.PreviewInterfaces.shproj", "{E307D279-8480-4967-A94F-6C89764E27FE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7C7DFA53-17A3-4FFF-B17A-4051192A522E}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		MemoQ.PreviewInterfaces\MemoQ.PreviewInterfaces.projitems*{79fcc726-7f7c-45ac-9eaf-1f46e09f73b8}*SharedItemsImports = 5
+		MemoQ.PreviewInterfaces\MemoQ.PreviewInterfaces.projitems*{e307d279-8480-4967-a94f-6c89764e27fe}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
